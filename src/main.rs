@@ -1,6 +1,6 @@
 use rand::Rng;
-mod measure;
-use crate::measure::measure::*;
+mod stats;
+use crate::stats::*;
 use std::time::Instant;
 
 fn main() {
