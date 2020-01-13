@@ -18,7 +18,6 @@ pub fn median(data: &[f64]) -> f64 {
 
 pub fn variance(data: &[f64]) -> f64 {
     let mean = mean(data);
-
     data.iter().map(|i| (i - mean).powi(2)).sum::<f64>() / (data.len() as f64 - 1.0)
 }
 
