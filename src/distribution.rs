@@ -1,4 +1,5 @@
 use crate::stats::*;
+use rand::Rng;
 
 #[derive(Debug)]
 pub struct Normal {
@@ -8,9 +9,12 @@ pub struct Normal {
 
 impl Normal {
     // TODO create traits to avoid having to rewrite each method thing
+    // TODO allow addition, subtraction, multiplication, and division of Normal
+    // distributions
     pub fn new(mean: f64, stdev: f64) -> Self {
         Normal { mean, stdev }
     }
+
     pub fn from(data: &[f64]) -> Self {
         // TODO change functions so it doesn't keep recalculating the mean
         // aka provide optional mean parameter for the mean that you've already
@@ -40,4 +44,6 @@ impl Normal {
     pub fn variance(&self) -> f64 {
         self.stdev.powi(2)
     }
+
+    // pub fn sample(&self, rng: &rand::thread_rng) {}
 }
