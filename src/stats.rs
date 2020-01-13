@@ -47,18 +47,10 @@ fn _erf_approx(z: f64) -> f64 {
 
 pub fn erf(z: f64) -> f64 {
     // TODO look for better approximation?
+    // There is one with half the max error rate on wikipedia
     if z > 0.0 {
         _erf_approx(z)
     } else {
         -_erf_approx(-z)
     }
 }
-
-// FIXME - refactor this into a method pertaining to dist::Normal struct
-pub fn normal_cdf(x: f64, mean: f64, stdev: f64) -> f64 {
-    0.5 * (1.0 + erf((x - mean) / (stdev * std::f64::consts::SQRT_2)))
-}
-
-// TODO implement summary statistics
-// TODO implement the following:
-// IQR, skewness, correlation coefficient, etc
