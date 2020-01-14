@@ -35,37 +35,36 @@ fn erf_impl(z: f64) -> f64 {
 
     let t: f64 = 1.0 / (1.0 + P * z);
 
-    1.0 - (A_1 * t + A_2 * t.powi(2) + A_3 * t.powi(3) + A_4 * t.powi(4) + A_5 * t.powi(5))
+    1.0 - (A_1 * t
+        + A_2 * t.powi(2)
+        + A_3 * t.powi(3)
+        + A_4 * t.powi(4)
+        + A_5 * t.powi(5))
         * std::f64::consts::E.powf(-z.powi(2))
 }
 
 pub fn erf(z: f64) -> f64 {
     // TODO use arbitrary precision algorithm
-    if z > 0.0 {
-        erf_impl(z)
-    } else {
-        -erf_impl(-z)
-    }
+    if z > 0.0 { erf_impl(z) } else { -erf_impl(-z) }
 }
 
 pub fn sgn(x: f64) -> f64 {
-    if x == 0.0 {
-        0.0
-    } else if x < 0.0 {
-        -1.0
-    } else {
-        1.0
+    match x.partial_cmp(&0f64).unwrap() {
+        std::cmp::Ordering::Equal => 0.0,
+        std::cmp::Ordering::Greater => 1.0,
+        std::cmp::Ordering::Less => -1.0,
     }
 }
 
 pub fn inverse_erf(x: f64) -> f64 {
-    // TODO find better approximation
-    const A: f64 = 0.1400122886866666060042495;
-    const FRAC_2_PI_A: f64 = 4.546884979448284327344754;
+    // TODO switch to a = 0.147 (change other consts too that depend on A's value)
+    const A: f64 = 0.140_012_288_686_666_6;
+    const FRAC_2_PI_A: f64 = 4.546_884_979_448_285;
     let ln_one_minus_x_squared = (1.0 - x.powi(2)).ln();
 
     sgn(x)
-        * (((FRAC_2_PI_A + ln_one_minus_x_squared / 2.0).powi(2) - ln_one_minus_x_squared / A)
+        * (((FRAC_2_PI_A + ln_one_minus_x_squared / 2.0).powi(2)
+            - ln_one_minus_x_squared / A)
             .sqrt()
             - (FRAC_2_PI_A + ln_one_minus_x_squared / 2.0))
             .sqrt()

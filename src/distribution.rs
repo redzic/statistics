@@ -29,6 +29,7 @@ impl Normal {
         0.5 * (1.0 + erf((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)))
     }
 
+    // TODO change all these to traits
     pub fn mean(&self) -> f64 {
         self.mean
     }
