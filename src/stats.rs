@@ -33,9 +33,9 @@ fn erf_impl(z: f64) -> f64 {
     const A_4: f64 = -1.453152027;
     const A_5: f64 = 1.061405429;
 
-    let x: f64 = 1.0 / (1.0 + P * z);
+    let t: f64 = 1.0 / (1.0 + P * z);
 
-    1.0 - (A_1 * x + A_2 * x.powi(2) + A_3 * x.powi(3) + A_4 * x.powi(4) + A_5 * x.powi(5))
+    1.0 - (A_1 * t + A_2 * t.powi(2) + A_3 * t.powi(3) + A_4 * t.powi(4) + A_5 * t.powi(5))
         * std::f64::consts::E.powf(-z.powi(2))
 }
 
