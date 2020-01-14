@@ -37,6 +37,10 @@ impl Normal {
         self.mean
     }
 
+    pub fn mode(&self) -> f64 {
+        self.mean
+    }
+
     pub fn stdev(&self) -> f64 {
         self.stdev
     }
@@ -45,5 +49,7 @@ impl Normal {
         self.stdev.powi(2)
     }
 
-    // pub fn sample(&self, rng: &rand::thread_rng) {}
+    // pub fn sample(&self, rng: &rand::Rng) -> f64 {
+    //     2.0
+    // }
 }

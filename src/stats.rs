@@ -25,7 +25,7 @@ pub fn stdev(data: &[f64]) -> f64 {
     variance(data).sqrt()
 }
 
-fn _erf_approx(z: f64) -> f64 {
+fn erf_impl(z: f64) -> f64 {
     const P: f64 = 0.3275911;
     const A_1: f64 = 0.254829592;
     const A_2: f64 = -0.284496736;
@@ -33,20 +33,17 @@ fn _erf_approx(z: f64) -> f64 {
     const A_4: f64 = -1.453152027;
     const A_5: f64 = 1.061405429;
 
-    1.0 - (A_1 * (1.0 / (1.0 + P * z))
-        + A_2 * (1.0 / (1.0 + P * z)).powi(2)
-        + A_3 * (1.0 / (1.0 + P * z)).powi(3)
-        + A_4 * (1.0 / (1.0 + P * z)).powi(4)
-        + A_5 * (1.0 / (1.0 + P * z)).powi(5))
+    let x: f64 = 1.0 / (1.0 + P * z);
+
+    1.0 - (A_1 * x + A_2 * x.powi(2) + A_3 * x.powi(3) + A_4 * x.powi(4) + A_5 * x.powi(5))
         * std::f64::consts::E.powf(-z.powi(2))
 }
 
 pub fn erf(z: f64) -> f64 {
-    // TODO look for better approximation?
-    // There is one with half the max error rate on wikipedia
+    // TODO use arbitrary precision algorithm
     if z > 0.0 {
-        _erf_approx(z)
+        erf_impl(z)
     } else {
-        -_erf_approx(-z)
+        -erf_impl(-z)
     }
 }

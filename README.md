@@ -1,9 +1,15 @@
-# Statistics in Rust
+# Statistics
 
-Name will change at some point once I figure out an actual name
+Statistical library written in rust.
 
-very WIP atm... API has no documentation and is subject to breaking changes without notice. Do not use this in its current state at all.
+```rust
+let dist = Normal::new(0.0, 1.0);
+dist.cdf(0.0);
 
-However, it _does_ have some very basic functionality already implemented.
+let data = vec![0.0, 1.0, 2.5, 5.3, 0.2, -4.2];
 
-The goal is to use parallelism when possible/practical to speed up computation.
+println!("{}", mean(&data));
+println!("{}", median(&data));
+println!("{}", variance(&data));
+println!("{}", stdev(&data));
+```
