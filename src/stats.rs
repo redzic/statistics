@@ -59,16 +59,14 @@ pub fn sgn(x: f64) -> f64 {
 }
 
 pub fn inverse_erf(x: f64) -> f64 {
-    // TODO use more accurate algorithm
-    let a = (8.0 * (std::f64::consts::PI - 3.0))
-        / (3.0 * std::f64::consts::PI * (4.0 - std::f64::consts::PI));
-
-    let FRAC_2_PI_A = 2.0 / (std::f64::consts::PI * a);
-    let LN_ONE_MINUS_X_SQUARED = (1.0 - x.powi(2)).ln();
+    // TODO find better approximation
+    const A: f64 = 0.1400122886866666060042495;
+    const FRAC_2_PI_A: f64 = 4.546884979448284327344754;
+    let ln_one_minus_x_squared = (1.0 - x.powi(2)).ln();
 
     sgn(x)
-        * (((FRAC_2_PI_A + LN_ONE_MINUS_X_SQUARED / 2.0).powi(2) - LN_ONE_MINUS_X_SQUARED / a)
+        * (((FRAC_2_PI_A + ln_one_minus_x_squared / 2.0).powi(2) - ln_one_minus_x_squared / A)
             .sqrt()
-            - (FRAC_2_PI_A + LN_ONE_MINUS_X_SQUARED / 2.0))
+            - (FRAC_2_PI_A + ln_one_minus_x_squared / 2.0))
             .sqrt()
 }
