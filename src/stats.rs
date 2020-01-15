@@ -58,14 +58,10 @@ pub fn sgn(x: f64) -> f64 {
 
 pub fn inverse_erf(x: f64) -> f64 {
     // TODO switch to a = 0.147 (change other consts too that depend on A's value)
-    const A: f64 = 0.140_012_288_686_666_6;
-    const FRAC_2_PI_A: f64 = 4.546_884_979_448_285;
+    const A: f64 = 0.14001_22886_866666;
+    const FRAC_2_PI_A: f64 = 4.54688_49794_48285;
     let ln_one_minus_x_squared = (1.0 - x.powi(2)).ln();
+    let y = FRAC_2_PI_A + ln_one_minus_x_squared / 2.0;
 
-    sgn(x)
-        * (((FRAC_2_PI_A + ln_one_minus_x_squared / 2.0).powi(2)
-            - ln_one_minus_x_squared / A)
-            .sqrt()
-            - (FRAC_2_PI_A + ln_one_minus_x_squared / 2.0))
-            .sqrt()
+    sgn(x) * ((y.powi(2) - ln_one_minus_x_squared / A).sqrt() - y).sqrt()
 }
