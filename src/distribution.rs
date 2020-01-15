@@ -7,6 +7,36 @@ pub struct Normal {
     stdev: f64,
 }
 
+// TODO maybe declare these somewhere else?
+
+pub trait Cdf {
+    fn cdf(&self, x: f64) -> f64;
+}
+
+pub trait InverseCdf {
+    fn inv_cdf(&self, p: f64) -> f64;
+}
+
+pub trait Mean {
+    fn mean(&self) -> f64;
+}
+
+pub trait Median {
+    fn median(&self) -> f64;
+}
+
+pub trait Mode {
+    fn mode(&self) -> f64;
+}
+
+pub trait StandardDeviation {
+    fn stdev(&self) -> f64;
+}
+
+pub trait Variance {
+    fn variance(&self) -> f64;
+}
+
 impl Normal {
     // TODO create traits to avoid having to rewrite each method thing
     // TODO allow addition, subtraction, multiplication, and division of Normal
@@ -25,16 +55,50 @@ impl Normal {
             stdev: stdev(&data),
         }
     }
+}
 
-    pub fn cdf(&self, x: f64) -> f64 {
+impl Mean for Normal {
+    fn mean(&self) -> f64 {
+        self.mean
+    }
+}
+
+impl Median for Normal {
+    fn median(&self) -> f64 {
+        self.mean
+    }
+}
+
+impl Mode for Normal {
+    fn mode(&self) -> f64 {
+        self.mean
+    }
+}
+
+impl StandardDeviation for Normal {
+    fn stdev(&self) -> f64 {
+        self.stdev
+    }
+}
+
+impl Variance for Normal {
+    fn variance(&self) -> f64 {
+        self.stdev.powi(2)
+    }
+}
+
+impl Cdf for Normal {
+    fn cdf(&self, x: f64) -> f64 {
         0.5 * (1.0 + erf((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)))
     }
+}
 
-    pub fn inv_cdf(&self, p: f64) -> f64 {
+impl InverseCdf for Normal {
+    fn inv_cdf(&self, p: f64) -> f64 {
+        // TODO check p to see if it is valid
         // This is a rough translation from the python statistics module
         let q = p - 0.5;
 
-        // TODO find better solution than this
         let num: f64;
         let den: f64;
 
@@ -151,26 +215,5 @@ impl Normal {
         }
 
         self.mean + (x * self.stdev)
-    }
-
-    // TODO change all these to traits
-    pub fn mean(&self) -> f64 {
-        self.mean
-    }
-
-    pub fn median(&self) -> f64 {
-        self.mean
-    }
-
-    pub fn mode(&self) -> f64 {
-        self.mean
-    }
-
-    pub fn stdev(&self) -> f64 {
-        self.stdev
-    }
-
-    pub fn variance(&self) -> f64 {
-        self.stdev.powi(2)
     }
 }
