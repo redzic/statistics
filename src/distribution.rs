@@ -74,7 +74,6 @@ impl Cdf for Normal {
 impl InverseCdf for Normal {
     fn inv_cdf(&self, p: f64) -> f64 {
         // TODO check p to see if it is valid
-        // This is a rough translation from the python statistics module
         let q = p - 0.5;
 
         let num: f64;
