@@ -1,5 +1,25 @@
 use rayon::prelude::*;
 
+pub trait Mean {
+    fn mean(&self) -> f64;
+}
+
+pub trait Median {
+    fn median(&self) -> f64;
+}
+
+pub trait Mode {
+    fn mode(&self) -> f64;
+}
+
+pub trait StandardDeviation {
+    fn stdev(&self) -> f64;
+}
+
+pub trait Variance {
+    fn variance(&self) -> f64;
+}
+
 pub fn mean(data: &[f64]) -> f64 {
     data.iter().sum::<f64>() / data.len() as f64
 }

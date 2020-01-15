@@ -7,34 +7,12 @@ pub struct Normal {
     stdev: f64,
 }
 
-// TODO maybe declare these somewhere else?
-
 pub trait Cdf {
     fn cdf(&self, x: f64) -> f64;
 }
 
 pub trait InverseCdf {
     fn inv_cdf(&self, p: f64) -> f64;
-}
-
-pub trait Mean {
-    fn mean(&self) -> f64;
-}
-
-pub trait Median {
-    fn median(&self) -> f64;
-}
-
-pub trait Mode {
-    fn mode(&self) -> f64;
-}
-
-pub trait StandardDeviation {
-    fn stdev(&self) -> f64;
-}
-
-pub trait Variance {
-    fn variance(&self) -> f64;
 }
 
 impl Normal {
