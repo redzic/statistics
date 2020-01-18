@@ -1,18 +1,10 @@
-use crate::stats::*;
-use rand::Rng;
+use crate::functions::functions::*;
+use crate::statistics::traits::*;
 
 #[derive(Debug)]
 pub struct Normal {
     mean: f64,
     stdev: f64,
-}
-
-pub trait Cdf {
-    fn cdf(&self, x: f64) -> f64;
-}
-
-pub trait InverseCdf {
-    fn inv_cdf(&self, p: f64) -> f64;
 }
 
 impl Normal {
@@ -29,8 +21,8 @@ impl Normal {
         // calculated
 
         Normal {
-            mean: mean(&data),
-            stdev: stdev(&data),
+            mean: data.mean(),
+            stdev: data.stdev(),
         }
     }
 }
@@ -53,7 +45,7 @@ impl Mode for Normal {
     }
 }
 
-impl StandardDeviation for Normal {
+impl StdDev for Normal {
     fn stdev(&self) -> f64 {
         self.stdev
     }
@@ -71,7 +63,7 @@ impl Cdf for Normal {
     }
 }
 
-impl InverseCdf for Normal {
+impl InvCdf for Normal {
     fn inv_cdf(&self, p: f64) -> f64 {
         // TODO check p to see if it is valid
         let q = p - 0.5;
