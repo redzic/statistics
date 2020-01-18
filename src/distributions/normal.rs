@@ -11,6 +11,10 @@ impl Normal {
     // TODO allow addition, subtraction, multiplication, and division of Normal
     // distributions
     pub fn new(mean: f64, stdev: f64) -> Self {
+        if stdev <= 0.0 {
+            panic!("σ must be positive");
+        }
+
         Normal { mean, stdev }
     }
 

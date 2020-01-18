@@ -24,8 +24,8 @@ fn _erf_approx(x: f64) -> f64 {
 }
 
 fn _erf_taylor(x: f64, mx2: f64) -> f64 {
-    x * (1.1283791670955125739
-        + mx2 * (0.37612638903183752464 + mx2 * 0.11283791670955125739))
+    x * (std::f64::consts::FRAC_2_SQRT_PI
+        + mx2 * (0.376_126_389_031_837_54 + mx2 * 0.112_837_916_709_551_26))
 }
 
 pub fn erf(x: f64) -> f64 {
@@ -46,7 +46,7 @@ pub fn erf(x: f64) -> f64 {
         }
 
         // These are fallback cases if we can't use the taylor approximation
-        return _erf_approx(x);
+        _erf_approx(x)
     // return 1.0 - mx2.exp() * erfcx(x);
     // https://github.com/scipy/scipy/blob/8dba340293fe20e62e173bdf2c10ae208286692f/scipy/special/Faddeeva.cc#L174
     } else {
@@ -54,7 +54,7 @@ pub fn erf(x: f64) -> f64 {
         if x < -5e-3f64 {
             return _erf_taylor(x, mx2);
         }
-        return _erf_approx(x);
+        _erf_approx(x)
         // return mx2.exp() * erfcx(-x) - 1.0;
     }
 }
