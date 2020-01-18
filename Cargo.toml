@@ -8,4 +8,4 @@ edition = "2018"
 
 [dependencies]
 rayon = "1.3.0"
-statrs = "0.12.0"
+# TODO experiment with criterion for benchmarking
