@@ -16,10 +16,12 @@ pub trait Mode {
 
 pub trait StdDev {
     fn stdev(&self) -> f64;
+    fn stdev_with_mean(&self, mean: f64) -> f64;
 }
 
 pub trait Variance {
     fn variance(&self) -> f64;
+    fn variance_with_mean(&self, mean: f64) -> f64;
 }
 
 pub trait Cdf {

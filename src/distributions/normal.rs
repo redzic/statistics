@@ -8,7 +8,6 @@ pub struct Normal {
 }
 
 impl Normal {
-    // TODO create traits to avoid having to rewrite each method thing
     // TODO allow addition, subtraction, multiplication, and division of Normal
     // distributions
     pub fn new(mean: f64, stdev: f64) -> Self {
@@ -16,13 +15,11 @@ impl Normal {
     }
 
     pub fn from(data: &[f64]) -> Self {
-        // TODO change functions so it doesn't keep recalculating the mean
-        // aka provide optional mean parameter for the mean that you've already
-        // calculated
+        let mean = data.mean();
 
         Normal {
-            mean: data.mean(),
-            stdev: data.stdev(),
+            mean: mean,
+            stdev: data.stdev_with_mean(mean),
         }
     }
 }
@@ -49,11 +46,23 @@ impl StdDev for Normal {
     fn stdev(&self) -> f64 {
         self.stdev
     }
+
+    // TODO clean up with API somehow with optional arguments
+    // (which I don't think are even possible)
+    // This function literally makes no sense in this case
+    // same thing for variance
+    fn stdev_with_mean(&self, _mean: f64) -> f64 {
+        self.stdev
+    }
 }
 
 impl Variance for Normal {
     fn variance(&self) -> f64 {
         self.stdev.powi(2)
+    }
+
+    fn variance_with_mean(&self, _mean: f64) -> f64 {
+        self.stdev
     }
 }
 
