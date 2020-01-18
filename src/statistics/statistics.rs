@@ -18,7 +18,7 @@ impl Median for [f64] {
         let n = self.len();
         let mut copy = self.to_owned();
 
-        copy.par_sort_unstable_by(|x, y| x.partial_cmp(&y).unwrap());
+        copy.par_sort_unstable_by(|x, y| x.partial_cmp(y).unwrap());
 
         match n % 2 {
             0 => (copy[n / 2 - 1] + copy[n / 2]) / 2.0,

@@ -8,4 +8,5 @@ edition = "2018"
 
 [dependencies]
 rayon = "1.3.0"
+rug = "1.6.0"
 # TODO experiment with criterion for benchmarking

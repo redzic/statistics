@@ -1,5 +1,5 @@
-use crate::functions::functions::*;
 use crate::statistics::traits::*;
+use rug::Float;
 
 #[derive(Debug)]
 pub struct Normal {
@@ -72,7 +72,15 @@ impl Variance for Normal {
 
 impl Cdf for Normal {
     fn cdf(&self, x: f64) -> f64 {
-        0.5 * (1.0 + erf((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)))
+        // 0.5 * (1.0 + erf((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)))
+        (Float::with_val(53, 0.5)
+            * (Float::with_val(53, 1.0)
+                + Float::with_val(
+                    53,
+                    (x - self.mean) / (self.stdev * std::f64::consts::SQRT_2),
+                )
+                .erf()))
+        .to_f64()
     }
 }
 

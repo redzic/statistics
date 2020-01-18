@@ -54,6 +54,7 @@ pub fn erf(x: f64) -> f64 {
         if x < -5e-3f64 {
             return _erf_taylor(x, mx2);
         }
+
         _erf_approx(x)
         // return mx2.exp() * erfcx(-x) - 1.0;
     }
