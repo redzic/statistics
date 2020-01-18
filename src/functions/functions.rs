@@ -33,10 +33,6 @@ pub fn erf(x: f64) -> f64 {
 
     // underflow
     if mx2 < -750.0 {
-        match x.partial_cmp(&0f64).unwrap() {
-            std::cmp::Ordering::Greater | std::cmp::Ordering::Equal => 1.0,
-            _ => -1.0,
-        };
         if x >= 0.0 {
             return 1.0;
         } else {
