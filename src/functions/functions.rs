@@ -1,4 +1,4 @@
-fn _erf_approx_impl(z: f64) -> f64 {
+fn _erf_approx_impl(x: f64) -> f64 {
     const P: f64 = 0.327_591_1;
     const A_1: f64 = 0.254_829_592;
     const A_2: f64 = -0.284_496_736;
@@ -6,20 +6,20 @@ fn _erf_approx_impl(z: f64) -> f64 {
     const A_4: f64 = -1.453_152_027;
     const A_5: f64 = 1.061_405_429;
 
-    let t: f64 = 1.0 / (1.0 + P * z);
+    let t: f64 = 1.0 / (1.0 + P * x);
 
     1.0 - (A_1 * t
         + A_2 * t.powi(2)
         + A_3 * t.powi(3)
         + A_4 * t.powi(4)
         + A_5 * t.powi(5))
-        * std::f64::consts::E.powf(-z.powi(2))
+        * std::f64::consts::E.powf(-x.powi(2))
 }
 
-fn _erf_approx(z: f64) -> f64 {
-    match z.partial_cmp(&0f64).unwrap() {
-        std::cmp::Ordering::Greater => _erf_approx_impl(z),
-        _ => -_erf_approx_impl(-z),
+fn _erf_approx(x: f64) -> f64 {
+    match x.partial_cmp(&0f64).unwrap() {
+        std::cmp::Ordering::Greater => _erf_approx_impl(x),
+        _ => -_erf_approx_impl(-x),
     }
 }
 
