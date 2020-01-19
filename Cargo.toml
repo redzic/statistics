@@ -10,7 +10,7 @@ edition = "2018"
 criterion = "0.3"
 
 [[bench]]
-name = "my_benchmark"
+name = "benchmark"
 harness = false
 
 [dependencies]

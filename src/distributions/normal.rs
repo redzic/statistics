@@ -1,6 +1,5 @@
-use crate::functions::functions::*;
+use crate::functions::erf::*;
 use crate::statistics::traits::*;
-// use rug::Float;
 
 #[derive(Debug)]
 pub struct Normal {
@@ -9,8 +8,6 @@ pub struct Normal {
 }
 
 impl Normal {
-    // TODO allow addition, subtraction, multiplication, and division of Normal
-    // distributions
     pub fn new(mean: f64, stdev: f64) -> Self {
         if stdev <= 0.0 {
             panic!("σ must be positive");
@@ -26,6 +23,34 @@ impl Normal {
             mean,
             stdev: data.stdev_with_mean(mean),
         }
+    }
+}
+
+impl std::ops::Add for Normal {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self::Output {
+        Self {
+            mean: self.mean + other.mean,
+            stdev: (self.stdev.powi(2) + other.stdev.powi(2)).sqrt(),
+        }
+    }
+}
+
+impl std::ops::Sub for Normal {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self::Output {
+        Self {
+            mean: self.mean - other.mean,
+            stdev: (self.stdev.powi(2) + other.stdev.powi(2)).sqrt(),
+        }
+    }
+}
+
+impl std::cmp::PartialEq for Normal {
+    fn eq(&self, other: &Self) -> bool {
+        self.mean == other.mean && self.stdev == other.stdev
     }
 }
 

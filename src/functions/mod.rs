@@ -1,1 +1,2 @@
-pub mod functions;
+pub mod binomial;
+pub mod erf;

@@ -1,2 +1,2 @@
-pub mod statistics;
+pub mod calculate;
 pub mod traits;
