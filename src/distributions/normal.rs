@@ -234,3 +234,10 @@ impl InvCdf for Normal {
         self.mean + (x * self.stdev)
     }
 }
+
+impl Pdf for Normal {
+    fn pdf(&self, x: f64) -> f64 {
+        (-0.5 * ((x - self.mean) / self.stdev).powi(2)).exp()
+            / (self.stdev * (2.0 * std::f64::consts::PI).sqrt())
+    }
+}
