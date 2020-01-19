@@ -1,5 +1,6 @@
 use crate::functions::erf::*;
 use crate::statistics::traits::*;
+use rug::Float;
 
 #[derive(Debug)]
 pub struct Normal {
@@ -23,6 +24,10 @@ impl Normal {
             mean,
             stdev: data.stdev_with_mean(mean),
         }
+    }
+
+    pub fn cdf_lossy(&self, x: f64) -> f64 {
+        0.5 * (1.0 + erf((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)))
     }
 }
 
@@ -99,15 +104,14 @@ impl Variance for Normal {
 // TODO allow choice between arbitrary precision and lossy algorithm
 impl Cdf for Normal {
     fn cdf(&self, x: f64) -> f64 {
-        0.5 * (1.0 + erf((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)))
-        // (Float::with_val(53, 0.5)
-        //     * (Float::with_val(53, 1.0)
-        //         + Float::with_val(
-        //             53,
-        //             (x - self.mean) / (self.stdev * std::f64::consts::SQRT_2),
-        //         )
-        //         .erf()))
-        // .to_f64()
+        (Float::with_val(53, 0.5)
+            * (Float::with_val(53, 1.0)
+                + Float::with_val(
+                    53,
+                    (x - self.mean) / (self.stdev * std::f64::consts::SQRT_2),
+                )
+                .erf()))
+        .to_f64()
     }
 }
 

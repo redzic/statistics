@@ -3,7 +3,7 @@ use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
 
 fn normal_cdf(x: f64) {
     let dist = Normal::new(0.0, 1.0);
-    dist.cdf(x);
+    dist.cdf_lossy(x);
 }
 
 fn bench_dist(c: &mut Criterion) {
