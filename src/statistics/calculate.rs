@@ -49,6 +49,7 @@ impl StdDev for [f64] {
 }
 
 impl Min for [f64] {
+    // TODO add check for len 0
     fn min(&self) -> f64 {
         let mut min;
 

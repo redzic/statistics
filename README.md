@@ -12,4 +12,6 @@ println!("{}", data.mean());
 println!("{}", data.median());
 println!("{}", data.variance());
 println!("{}", data.stdev());
+println!("{}", data.min());
+println!("{}", data.max());
 ```
