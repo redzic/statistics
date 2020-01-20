@@ -35,5 +35,17 @@ fn bench_norm_pdf(c: &mut Criterion) {
     group.finish();
 }
 
-criterion_group!(benches, bench_norm_pdf);
+fn min_max() {
+    let data = [
+        0.0, 0.0, 2.0, -0.2, 5.0, -0.264, 61.9, -54.6, 72.9, 3.0, -0.2,
+    ];
+
+    data.max();
+}
+
+fn bench_min_max(c: &mut Criterion) {
+    c.bench_function("min_max", |b| b.iter(|| min_max()));
+}
+
+criterion_group!(benches, bench_min_max);
 criterion_main!(benches);

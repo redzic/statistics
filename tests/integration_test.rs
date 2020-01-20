@@ -10,7 +10,7 @@ fn stats_test() {
 }
 
 #[test]
-fn distribution_test() {
+fn normal_dist_test() {
     let dist = Normal::new(0.0, 1.0);
     assert_eq!(dist.cdf(0.0), 0.5);
     assert_eq!(erf(0.0), 0.0);
@@ -21,6 +21,16 @@ fn distribution_test() {
 
 #[test]
 #[should_panic]
-fn invalid_distribution() {
+fn invalid_normal_dist() {
     Normal::new(0.0, 0.0);
+}
+
+#[test]
+fn min_max_test() {
+    let data = [
+        0.0, 0.0, 2.0, -0.2, 5.0, -0.264, 61.9, -54.6, 72.9, 3.0, -0.2,
+    ];
+
+    assert_eq!(data.min(), -54.6);
+    assert_eq!(data.max(), 72.9);
 }

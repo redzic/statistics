@@ -47,3 +47,47 @@ impl StdDev for [f64] {
         self.variance_with_mean(mean).sqrt()
     }
 }
+
+impl Min for [f64] {
+    fn min(&self) -> f64 {
+        let mut min;
+
+        unsafe {
+            min = *self.get_unchecked(0);
+
+            if self.len() == 1 {
+                return min;
+            }
+
+            for i in 1..self.len() {
+                if *self.get_unchecked(i) < min {
+                    min = *self.get_unchecked(i);
+                }
+            }
+        }
+
+        min
+    }
+}
+
+impl Max for [f64] {
+    fn max(&self) -> f64 {
+        let mut max;
+
+        unsafe {
+            max = *self.get_unchecked(0);
+
+            if self.len() == 1 {
+                return max;
+            }
+
+            for i in 1..self.len() {
+                if *self.get_unchecked(i) > max {
+                    max = *self.get_unchecked(i);
+                }
+            }
+        }
+
+        max
+    }
+}
