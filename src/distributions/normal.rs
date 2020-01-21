@@ -1,6 +1,8 @@
 use crate::functions::erf::*;
 use crate::statistics::traits::*;
 use rug::Float;
+use std::cmp::PartialEq;
+use std::ops::{Add, Sub};
 
 #[derive(Debug)]
 pub struct Normal {
@@ -27,11 +29,12 @@ impl Normal {
     }
 
     pub fn cdf_lossy(&self, x: f64) -> f64 {
-        0.5 * (1.0 + erf((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)))
+        0.5 * (1.0
+            + erf((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)))
     }
 }
 
-impl std::ops::Add for Normal {
+impl Add for Normal {
     type Output = Self;
 
     fn add(self, other: Self) -> Self::Output {
@@ -42,7 +45,9 @@ impl std::ops::Add for Normal {
     }
 }
 
-impl std::ops::Sub for Normal {
+// Clippy is wrong in this case
+#[allow(clippy::suspicious_arithmetic_impl)]
+impl Sub for Normal {
     type Output = Self;
 
     fn sub(self, other: Self) -> Self::Output {
@@ -53,31 +58,31 @@ impl std::ops::Sub for Normal {
     }
 }
 
-impl std::cmp::PartialEq for Normal {
+impl PartialEq for Normal {
     fn eq(&self, other: &Self) -> bool {
         self.mean == other.mean && self.stdev == other.stdev
     }
 }
 
-impl Mean for Normal {
+impl Mean<f64> for Normal {
     fn mean(&self) -> f64 {
         self.mean
     }
 }
 
-impl Median for Normal {
+impl Median<f64> for Normal {
     fn median(&self) -> f64 {
         self.mean
     }
 }
 
-impl Mode for Normal {
+impl Mode<f64> for Normal {
     fn mode(&self) -> f64 {
         self.mean
     }
 }
 
-impl StdDev for Normal {
+impl StdDev<f64> for Normal {
     fn stdev(&self) -> f64 {
         self.stdev
     }
@@ -91,7 +96,7 @@ impl StdDev for Normal {
     }
 }
 
-impl Variance for Normal {
+impl Variance<f64> for Normal {
     fn variance(&self) -> f64 {
         self.stdev.powi(2)
     }
@@ -126,7 +131,8 @@ impl InvCdf for Normal {
         if q.abs() <= 0.425 {
             let r = 0.180_625 - q.powi(2);
 
-            num = (((((((2.509_080_928_730_122_7e3 * r + 3.343_057_558_358_813e4)
+            num = (((((((2.509_080_928_730_122_7e3 * r
+                + 3.343_057_558_358_813e4)
                 * r
                 + 6.726_577_092_700_87e4)
                 * r
@@ -141,7 +147,8 @@ impl InvCdf for Normal {
                 + 3.387_132_872_796_366_5e0)
                 * q;
 
-            den = ((((((5.226_495_278_852_854e3 * r + 2.872_908_573_572_194_3e4)
+            den = ((((((5.226_495_278_852_854e3 * r
+                + 2.872_908_573_572_194_3e4)
                 * r
                 + 3.930_789_580_009_271e4)
                 * r
@@ -165,7 +172,8 @@ impl InvCdf for Normal {
         if r <= 5.0 {
             r -= 1.6;
 
-            num = ((((((7.745_450_142_783_414e-4 * r + 2.272_384_498_926_918_4e-2)
+            num = ((((((7.745_450_142_783_414e-4 * r
+                + 2.272_384_498_926_918_4e-2)
                 * r
                 + 2.417_807_251_774_506e-1)
                 * r
@@ -179,7 +187,8 @@ impl InvCdf for Normal {
                 * r
                 + 1.423_437_110_749_683_5e0;
 
-            den = ((((((1.050_750_071_644_416_9e-9 * r + 5.475_938_084_995_345e-4)
+            den = ((((((1.050_750_071_644_416_9e-9 * r
+                + 5.475_938_084_995_345e-4)
                 * r
                 + 1.519_866_656_361_645_7e-2)
                 * r
@@ -235,7 +244,7 @@ impl InvCdf for Normal {
     }
 }
 
-impl Pdf for Normal {
+impl Pdf<f64> for Normal {
     fn pdf(&self, x: f64) -> f64 {
         (-0.5 * ((x - self.mean) / self.stdev).powi(2)).exp()
             / (self.stdev * (2.0 * std::f64::consts::PI).sqrt())

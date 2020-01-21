@@ -1,43 +1,48 @@
-pub trait Mean {
-    fn mean(&self) -> f64;
+pub trait Mean<T> {
+    fn mean(&self) -> T;
 }
 
-pub trait GeometricMean {
-    fn geometric_mean(&self) -> f64;
+pub trait GeometricMean<T> {
+    fn geometric_mean(&self) -> T;
 }
 
-pub trait Median {
-    fn median(&self) -> f64;
+pub trait Median<T> {
+    fn median(&self) -> T;
 }
 
-pub trait Mode {
-    fn mode(&self) -> f64;
+pub trait Mode<T> {
+    fn mode(&self) -> T;
 }
 
-pub trait StdDev {
-    fn stdev(&self) -> f64;
+pub trait StdDev<T> {
+    fn stdev(&self) -> T;
     fn stdev_with_mean(&self, mean: f64) -> f64;
 }
 
-pub trait Variance {
-    fn variance(&self) -> f64;
-    fn variance_with_mean(&self, mean: f64) -> f64;
+pub trait Variance<T> {
+    fn variance(&self) -> T;
+    fn variance_with_mean(&self, mean: f64) -> T;
 }
 
-pub trait Min {
-    fn min(&self) -> f64;
+pub trait Min<T> {
+    fn min(&self) -> T;
 }
 
-pub trait Max {
-    fn max(&self) -> f64;
+pub trait Max<T> {
+    fn max(&self) -> T;
+}
+
+pub trait BinomCoeff {
+    // TODO make generic
+    fn choose(&self, k: u64) -> u64;
 }
 
 pub trait Cdf {
     fn cdf(&self, x: f64) -> f64;
 }
 
-pub trait Pdf {
-    fn pdf(&self, x: f64) -> f64;
+pub trait Pdf<T> {
+    fn pdf(&self, x: T) -> f64;
 }
 
 pub trait InvCdf {

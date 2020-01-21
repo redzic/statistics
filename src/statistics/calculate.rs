@@ -1,19 +1,19 @@
 use super::traits::*;
 use rayon::prelude::*;
 
-impl Mean for [f64] {
+impl Mean<f64> for [f64] {
     fn mean(&self) -> f64 {
         self.iter().sum::<f64>() / self.len() as f64
     }
 }
 
-impl GeometricMean for [f64] {
+impl GeometricMean<f64> for [f64] {
     fn geometric_mean(&self) -> f64 {
         self.iter().product::<f64>().powf(1f64 / self.len() as f64)
     }
 }
 
-impl Median for [f64] {
+impl Median<f64> for [f64] {
     fn median(&self) -> f64 {
         let n = self.len();
         let mut copy = self.to_owned();
@@ -27,18 +27,20 @@ impl Median for [f64] {
     }
 }
 
-impl Variance for [f64] {
+impl Variance<f64> for [f64] {
     fn variance(&self) -> f64 {
         let mean = self.mean();
-        self.iter().map(|i| (i - mean).powi(2)).sum::<f64>() / (self.len() as f64 - 1.0)
+        self.iter().map(|i| (i - mean).powi(2)).sum::<f64>()
+            / (self.len() as f64 - 1.0)
     }
 
     fn variance_with_mean(&self, mean: f64) -> f64 {
-        self.iter().map(|i| (i - mean).powi(2)).sum::<f64>() / (self.len() as f64 - 1.0)
+        self.iter().map(|i| (i - mean).powi(2)).sum::<f64>()
+            / (self.len() as f64 - 1.0)
     }
 }
 
-impl StdDev for [f64] {
+impl StdDev<f64> for [f64] {
     fn stdev(&self) -> f64 {
         self.variance().sqrt()
     }
@@ -48,7 +50,7 @@ impl StdDev for [f64] {
     }
 }
 
-impl Min for [f64] {
+impl Min<f64> for [f64] {
     // TODO add check for len 0
     fn min(&self) -> f64 {
         let mut min;
@@ -71,7 +73,7 @@ impl Min for [f64] {
     }
 }
 
-impl Max for [f64] {
+impl Max<f64> for [f64] {
     fn max(&self) -> f64 {
         let mut max;
 
@@ -90,5 +92,26 @@ impl Max for [f64] {
         }
 
         max
+    }
+}
+
+impl BinomCoeff for u64 {
+    fn choose(&self, mut k: u64) -> u64 {
+        let mut b = 1u64;
+
+        if k > self - k {
+            k = self - k;
+        }
+
+        {
+            let mut i = 0;
+            while i < k {
+                b *= self - i;
+                b /= i + 1;
+                i += 1;
+            }
+        }
+
+        b
     }
 }
