@@ -36,6 +36,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8aac770f1885fd7e387acedd76065302551364496e46b3dd00860b2f8359b9d"
 
 [[package]]
+name = "az"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "50c75f843b208181e91db52dfa533306f2936d4fdf9b5e2550718feb36bb9a04"
+
+[[package]]
 name = "backtrace"
 version = "0.3.42"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -329,9 +335,9 @@ dependencies = [
 
 [[package]]
 name = "gmp-mpfr-sys"
-version = "1.1.14"
+version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72592cd7513feefa5e41414825c42e839120d2f09e10c6094105d066072955fb"
+checksum = "4acb2347f5d15b35d18d8eceb3f3c4f58f428b4e2965a5e35aeabb613654702c"
 dependencies = [
  "dirs",
  "libc",
@@ -547,11 +553,13 @@ dependencies = [
 
 [[package]]
 name = "rug"
-version = "1.6.0"
+version = "1.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4c312da8c5e8429b22ef81d52c1feac6c817235346da1b96f087e5b8a4fb38fc"
+checksum = "efa0683f120bc91c3e2bace9c46c81f84478cc89b85ae1b74a09ef00f4ccd322"
 dependencies = [
+ "az",
  "gmp-mpfr-sys",
+ "libc",
 ]
 
 [[package]]
