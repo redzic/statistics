@@ -41,8 +41,14 @@ pub trait Cdf {
     fn cdf(&self, x: f64) -> f64;
 }
 
+/// Probability Density Function
 pub trait Pdf<T> {
     fn pdf(&self, x: T) -> f64;
+}
+
+/// Probability Mass Function
+pub trait Pmf<T> {
+    fn pmf(&self, x: T) -> f64;
 }
 
 pub trait InvCdf {

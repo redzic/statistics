@@ -1,4 +1,4 @@
-use ::statistics::*;
+use statistics::*;
 
 #[test]
 fn basic_summary_stats_test() {
@@ -14,7 +14,7 @@ fn normal_dist_test() {
     let dist = Normal::new(0.0, 1.0);
     assert_eq!(dist.cdf(0.0), 0.5);
     // TODO add better tests than this
-    assert_eq!(erf(2.0), 0.0);
+    assert_eq!(0f64.erf(), 0.0);
 
     let dist2 = Normal::new(1.0, 0.5);
     assert_eq!(dist + dist2, Normal::new(1.0, 1.118033988749895));
@@ -23,7 +23,7 @@ fn normal_dist_test() {
 #[test]
 fn binom_dist_test() {
     let dist = Binomial::new(200, 0.02);
-    assert_eq!(dist.pdf(0), 0.0175879466057215);
+    assert_eq!(dist.pmf(0), 0.0175879466057215);
 }
 
 #[test]

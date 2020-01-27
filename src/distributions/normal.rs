@@ -1,5 +1,5 @@
 use crate::functions::erf::*;
-use crate::statistics::traits::*;
+use crate::stats::traits::*;
 use rug::Float;
 use std::cmp::PartialEq;
 use std::ops::{Add, Sub};
@@ -30,7 +30,7 @@ impl Normal {
 
     pub fn cdf_lossy(&self, x: f64) -> f64 {
         0.5 * (1.0
-            + erf((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)))
+            + ((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)).erf())
     }
 }
 

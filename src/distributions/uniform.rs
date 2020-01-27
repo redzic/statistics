@@ -1,4 +1,4 @@
-use crate::statistics::traits::*;
+use crate::stats::traits::*;
 
 #[derive(Debug)]
 pub struct Uniform {

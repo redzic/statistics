@@ -1,4 +1,4 @@
-use crate::statistics::traits::*;
+use crate::stats::traits::*;
 use std::convert::TryInto;
 
 #[derive(Debug)]
@@ -13,8 +13,8 @@ impl Binomial {
     }
 }
 
-impl Pdf<u64> for Binomial {
-    fn pdf(&self, k: u64) -> f64 {
+impl Pmf<u64> for Binomial {
+    fn pmf(&self, k: u64) -> f64 {
         self.n.choose(k) as f64
             * self.p.powi(k.try_into().unwrap())
             * (1.0 - self.p).powf((self.n - k as u64) as f64)

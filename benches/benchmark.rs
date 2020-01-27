@@ -14,9 +14,9 @@ fn normal_pdf(x: f64) {
 fn bench_erf(c: &mut Criterion) {
     let mut group = c.benchmark_group("Error function");
 
-    for i in [-2.0, -1.0, 0.0, 1.0, 2.0].iter() {
+    for i in [-1.5, 0.0, 1.5].iter() {
         group.bench_with_input(BenchmarkId::new("erf", i), i, |b, i| {
-            b.iter(|| erf(*i))
+            b.iter(|| (*i).erf())
         });
     }
 
@@ -47,10 +47,10 @@ fn bench_norm_pdf(c: &mut Criterion) {
     group.finish();
 }
 
-// fn binom_pdf() {
-//     let dist = Binomial::new(0.3, 200).unwrap();
-//     dist.pmf(53);
-// }
+fn binom_pdf() {
+    let dist = Binomial::new(200, 0.3);
+    dist.pmf(53);
+}
 
 fn min_max() {
     let data = [
@@ -64,9 +64,9 @@ fn bench_min_max(c: &mut Criterion) {
     c.bench_function("min_max", |b| b.iter(|| min_max()));
 }
 
-// fn bench_binom(c: &mut Criterion) {
-//     c.bench_function("binom", |b| b.iter(|| binom_pdf()));
-// }
+fn bench_binom(c: &mut Criterion) {
+    c.bench_function("binom", |b| b.iter(|| binom_pdf()));
+}
 
 criterion_group!(benches, bench_erf);
 criterion_main!(benches);
