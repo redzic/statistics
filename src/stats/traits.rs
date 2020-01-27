@@ -32,25 +32,26 @@ pub trait Max<T> {
     fn max(&self) -> T;
 }
 
+/// Binomial Coefficient
 pub trait BinomCoeff {
-    // TODO make generic
     fn choose(&self, k: u64) -> u64;
 }
 
-pub trait Cdf {
-    fn cdf(&self, x: f64) -> f64;
+/// Cumulative Distribution Function
+pub trait CDF<T> {
+    fn cdf(&self, x: T) -> f64;
 }
 
 /// Probability Density Function
-pub trait Pdf<T> {
+pub trait PDF<T> {
     fn pdf(&self, x: T) -> f64;
 }
 
 /// Probability Mass Function
-pub trait Pmf<T> {
+pub trait PMF<T> {
     fn pmf(&self, x: T) -> f64;
 }
 
-pub trait InvCdf {
+pub trait InverseCDF {
     fn inv_cdf(&self, p: f64) -> f64;
 }

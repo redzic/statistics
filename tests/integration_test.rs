@@ -24,6 +24,8 @@ fn normal_dist_test() {
 fn binom_dist_test() {
     let dist = Binomial::new(200, 0.02);
     assert_eq!(dist.pmf(0), 0.0175879466057215);
+    let dist2 = Binomial::new(50, 0.5);
+    assert_eq!(dist2.cdf(14), 0.0004681114554259125);
 }
 
 #[test]

@@ -48,7 +48,7 @@ fn bench_norm_pdf(c: &mut Criterion) {
 }
 
 fn binom_pdf() {
-    let dist = Binomial::new(200, 0.3);
+    let dist = Binomial::new(200, 0.03);
     dist.pmf(53);
 }
 

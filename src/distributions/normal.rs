@@ -107,7 +107,7 @@ impl Variance<f64> for Normal {
 }
 
 // TODO allow choice between arbitrary precision and lossy algorithm
-impl Cdf for Normal {
+impl CDF<f64> for Normal {
     fn cdf(&self, x: f64) -> f64 {
         (Float::with_val(53, 0.5)
             * (Float::with_val(53, 1.0)
@@ -120,7 +120,7 @@ impl Cdf for Normal {
     }
 }
 
-impl InvCdf for Normal {
+impl InverseCDF for Normal {
     fn inv_cdf(&self, p: f64) -> f64 {
         // TODO check p to see if it is valid
         let q = p - 0.5;
@@ -244,7 +244,7 @@ impl InvCdf for Normal {
     }
 }
 
-impl Pdf<f64> for Normal {
+impl PDF<f64> for Normal {
     fn pdf(&self, x: f64) -> f64 {
         (-0.5 * ((x - self.mean) / self.stdev).powi(2)).exp()
             / (self.stdev * (2.0 * std::f64::consts::PI).sqrt())
