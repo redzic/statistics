@@ -28,3 +28,47 @@ impl CDF<u64> for Binomial {
         (0..k).map(|i| self.pmf(i)).sum::<f64>()
     }
 }
+
+impl Variance<f64> for Binomial {
+    fn variance(&self) -> f64 {
+        self.n as f64 * self.p * (1.0 - self.p)
+    }
+
+    // TODO refactor, this function shouldn't exist
+    fn variance_with_mean(&self, _mean: f64) -> f64 {
+        self.variance()
+    }
+}
+
+impl StdDev<f64> for Binomial {
+    fn stdev(&self) -> f64 {
+        self.variance().sqrt()
+    }
+
+    // TODO remove function
+    fn stdev_with_mean(&self, _mean: f64) -> f64 {
+        self.stdev()
+    }
+}
+
+impl ExpectedValue<f64> for Binomial {
+    fn expected(&self) -> f64 {
+        self.n as f64 * self.p
+    }
+}
+
+impl Mode<f64> for Binomial {
+    // TODO add tests
+    fn mode(&self) -> f64 {
+        let condition = (self.n + 1) as f64 * self.p;
+
+        if condition == 0.0 || (condition.floor() != condition) {
+            return condition.floor();
+        } else if condition.floor() == condition && condition as u64 <= self.n {
+            // TODO is also condition - 1
+            return condition;
+        } else {
+            return self.n as f64;
+        }
+    }
+}

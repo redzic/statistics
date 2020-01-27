@@ -52,6 +52,11 @@ pub trait PMF<T> {
     fn pmf(&self, x: T) -> f64;
 }
 
+/// Inverse Cumulative Distribution Function
 pub trait InverseCDF {
     fn inv_cdf(&self, p: f64) -> f64;
+}
+
+pub trait ExpectedValue<T> {
+    fn expected(&self) -> T;
 }
