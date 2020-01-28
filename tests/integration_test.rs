@@ -13,8 +13,10 @@ fn basic_summary_stats_test() {
 fn normal_dist_test() {
     let dist = Normal::new(0.0, 1.0);
     assert_eq!(dist.cdf(0.0), 0.5);
+    assert_eq!(dist.cdf(1.96), 0.9750021048517796);
     // TODO add better tests than this
-    assert_eq!(0f64.erf(), 0.0);
+    assert_eq!(0.0.erf(), 0.0);
+    assert_eq!(1.25.erf(), 0.9229001282564582);
 
     let dist2 = Normal::new(1.0, 0.5);
     assert_eq!(dist + dist2, Normal::new(1.0, 1.118033988749895));

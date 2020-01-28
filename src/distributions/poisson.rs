@@ -18,6 +18,28 @@ impl Mean<f64> for Poisson {
     }
 }
 
+impl Variance<f64> for Poisson {
+    fn variance(&self) -> f64 {
+        self.lambda
+    }
+
+    // TODO remove function
+    fn variance_with_mean(&self, _mean: f64) -> f64 {
+        self.variance()
+    }
+}
+
+impl StdDev<f64> for Poisson {
+    fn stdev(&self) -> f64 {
+        self.variance().sqrt()
+    }
+
+    // TODO remove function
+    fn stdev_with_mean(&self, _mean: f64) -> f64 {
+        self.stdev()
+    }
+}
+
 /// P(X = k)
 impl PMF<u32> for Poisson {
     fn pmf(&self, k: u32) -> f64 {
