@@ -2,6 +2,10 @@ pub trait Mean<T> {
     fn mean(&self) -> T;
 }
 
+pub trait HarmonicMean<T> {
+    fn harmonic_mean(&self) -> T;
+}
+
 pub trait GeometricMean<T> {
     fn geometric_mean(&self) -> T;
 }

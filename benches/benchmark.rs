@@ -3,7 +3,7 @@ use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
 
 fn normal_cdf(x: f64) {
     let dist = Normal::new(0.0, 1.0);
-    dist.cdf_lossy(x);
+    dist.cdf(x);
 }
 
 fn normal_pdf(x: f64) {
@@ -68,5 +68,5 @@ fn bench_binom(c: &mut Criterion) {
     c.bench_function("binom", |b| b.iter(|| binom_pdf()));
 }
 
-criterion_group!(benches, bench_erf);
+criterion_group!(benches, bench_norm_cdf);
 criterion_main!(benches);

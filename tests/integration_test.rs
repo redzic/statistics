@@ -7,6 +7,15 @@ fn basic_summary_stats_test() {
     assert_eq!(data.mean(), 2.41);
     assert_eq!(data.variance(), 5.9583);
     assert_eq!(data.geometric_mean(), 1.262435869042509);
+    assert_eq!(
+        vec![1.5, 2.5, 2.5, 2.75, 3.25, 4.75].stdev(),
+        1.0810874155219827
+    );
+    assert_eq!(
+        vec![2.75, 1.75, 1.25, 0.25, 0.5, 1.25, 3.5].variance(),
+        1.3720238095238095
+    );
+    assert_eq!(vec![1.0, 4.0, 4.0].harmonic_mean(), 2.0);
 }
 
 #[test]
@@ -14,12 +23,19 @@ fn normal_dist_test() {
     let dist = Normal::new(0.0, 1.0);
     assert_eq!(dist.cdf(0.0), 0.5);
     assert_eq!(dist.cdf(1.96), 0.9750021048517796);
-    // TODO add better tests than this
     assert_eq!(0.0.erf(), 0.0);
     assert_eq!(1.25.erf(), 0.9229001282564582);
 
-    let dist2 = Normal::new(1.0, 0.5);
-    assert_eq!(dist + dist2, Normal::new(1.0, 1.118033988749895));
+    assert_eq!(
+        dist + Normal::new(1.0, 0.5),
+        Normal::new(1.0, 1.118033988749895)
+    );
+
+    assert_eq!(dist.inv_cdf(0.5), 0.0);
+    // assert_eq!(dist.inv_cdf(0.9750021048517796), 1.96);
+
+    let temp_c = Normal::new(5.0, 2.5);
+    assert_eq!(temp_c * (9.0 / 5.0) + 32.0, Normal::new(41.0, 4.5));
 }
 
 #[test]
@@ -55,9 +71,6 @@ fn min_max_test() {
 
 #[test]
 fn binom_coeff() {
-    for i in 1..150 {
-        assert_eq!(i.choose(1), i);
-    }
     assert_eq!(5.choose(2), 10);
     assert_eq!(5.choose(3), 10);
     assert_eq!(14.choose(6), 3003);

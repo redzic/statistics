@@ -7,6 +7,12 @@ impl Mean<f64> for [f64] {
     }
 }
 
+impl HarmonicMean<f64> for [f64] {
+    fn harmonic_mean(&self) -> f64 {
+        self.len() as f64 / self.iter().map(|i| 1f64 / i).sum::<f64>()
+    }
+}
+
 impl GeometricMean<f64> for [f64] {
     fn geometric_mean(&self) -> f64 {
         self.iter().product::<f64>().powf(1f64 / self.len() as f64)
@@ -16,13 +22,13 @@ impl GeometricMean<f64> for [f64] {
 impl Median<f64> for [f64] {
     fn median(&self) -> f64 {
         let n = self.len();
-        let mut copy = self.to_owned();
+        let mut data = self.to_owned();
 
-        copy.par_sort_unstable_by(|x, y| x.partial_cmp(y).unwrap());
+        data.par_sort_unstable_by(|x, y| x.partial_cmp(y).unwrap());
 
         match n % 2 {
-            0 => (copy[n / 2 - 1] + copy[n / 2]) / 2.0,
-            _ => copy[n / 2],
+            0 => (data[n / 2 - 1] + data[n / 2]) / 2.0,
+            _ => data[n / 2],
         }
     }
 }

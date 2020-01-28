@@ -1,10 +1,9 @@
 use crate::functions::erf::*;
 use crate::stats::traits::*;
-use rug::Float;
 use std::cmp::PartialEq;
-use std::ops::{Add, Sub};
+use std::ops::{Add, Mul, Sub};
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Normal {
     mean: f64,
     stdev: f64,
@@ -27,17 +26,12 @@ impl Normal {
             stdev: data.stdev_with_mean(mean),
         }
     }
-
-    pub fn cdf_lossy(&self, x: f64) -> f64 {
-        0.5 * (1.0
-            + ((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)).erf())
-    }
 }
 
-impl Add for Normal {
+impl Add<Normal> for Normal {
     type Output = Self;
 
-    fn add(self, other: Self) -> Self::Output {
+    fn add(self, other: Self) -> Self {
         Self {
             mean: self.mean + other.mean,
             stdev: (self.stdev.powi(2) + other.stdev.powi(2)).sqrt(),
@@ -45,15 +39,48 @@ impl Add for Normal {
     }
 }
 
+impl Add<f64> for Normal {
+    type Output = Self;
+
+    fn add(self, scalar: f64) -> Self {
+        Self {
+            mean: self.mean + scalar,
+            stdev: self.stdev,
+        }
+    }
+}
+
+impl Mul<f64> for Normal {
+    type Output = Self;
+
+    fn mul(self, scalar: f64) -> Self {
+        Self {
+            mean: self.mean * scalar,
+            stdev: self.stdev * scalar,
+        }
+    }
+}
+
 // Clippy is wrong in this case
 #[allow(clippy::suspicious_arithmetic_impl)]
-impl Sub for Normal {
+impl Sub<Normal> for Normal {
     type Output = Self;
 
     fn sub(self, other: Self) -> Self::Output {
         Self {
             mean: self.mean - other.mean,
             stdev: (self.stdev.powi(2) + other.stdev.powi(2)).sqrt(),
+        }
+    }
+}
+
+impl Sub<f64> for Normal {
+    type Output = Self;
+
+    fn sub(self, scalar: f64) -> Self {
+        Self {
+            mean: self.mean - scalar,
+            stdev: self.stdev,
         }
     }
 }
@@ -109,20 +136,15 @@ impl Variance<f64> for Normal {
 // TODO allow choice between arbitrary precision and lossy algorithm
 impl CDF<f64> for Normal {
     fn cdf(&self, x: f64) -> f64 {
-        (Float::with_val(53, 0.5)
-            * (Float::with_val(53, 1.0)
-                + Float::with_val(
-                    53,
-                    (x - self.mean) / (self.stdev * std::f64::consts::SQRT_2),
-                )
-                .erf()))
-        .to_f64()
+        0.5 * (1.0
+            + ((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)).erf())
     }
 }
 
 impl InverseCDF for Normal {
+    /// Compute the inverse cumulative distribution function for the given Normal
+    /// distribution. Returns NaN if p < 0.0 or p > 1.0.
     fn inv_cdf(&self, p: f64) -> f64 {
-        // TODO check p to see if it is valid
         let q = p - 0.5;
 
         let num: f64;
