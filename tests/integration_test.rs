@@ -21,6 +21,13 @@ fn normal_dist_test() {
 }
 
 #[test]
+fn poisson_dist_test() {
+    let dist = Poisson::new(2.0);
+    assert_eq!(dist.pmf(4), 0.0902235221577418);
+    assert_eq!(dist.cdf(4), 0.8571234604985472);
+}
+
+#[test]
 fn binom_dist_test() {
     let dist = Binomial::new(200, 0.02);
     assert_eq!(dist.pmf(0), 0.0175879466057215);
