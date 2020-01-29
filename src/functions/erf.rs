@@ -231,23 +231,6 @@ fn erfc(x: f64) -> f64 {
     }
 }
 
-impl Error for f64 {
-    #[inline]
-    fn erf(&self) -> f64 {
-        erf(*self)
-    }
-
-    #[inline]
-    fn erfc(&self) -> f64 {
-        erfc(*self)
-    }
-
-    #[inline]
-    fn inv_erf(&self) -> f64 {
-        inv_erf(*self)
-    }
-}
-
 #[inline]
 fn sign(x: f64) -> f64 {
     match x.partial_cmp(&0f64).unwrap() {
@@ -266,4 +249,21 @@ fn inv_erf(x: f64) -> f64 {
     let y = FRAC_2_PI_A + ln_one_minus_x_squared / 2.0;
 
     sign(x) * ((y.powi(2) - ln_one_minus_x_squared / A).sqrt() - y).sqrt()
+}
+
+impl Error for f64 {
+    #[inline]
+    fn erf(&self) -> f64 {
+        erf(*self)
+    }
+
+    #[inline]
+    fn erfc(&self) -> f64 {
+        erfc(*self)
+    }
+
+    #[inline]
+    fn inv_erf(&self) -> f64 {
+        inv_erf(*self)
+    }
 }

@@ -20,12 +20,10 @@ pub trait Mode<T> {
 
 pub trait StdDev<T> {
     fn stdev(&self) -> T;
-    fn stdev_with_mean(&self, mean: f64) -> f64;
 }
 
 pub trait Variance<T> {
     fn variance(&self) -> T;
-    fn variance_with_mean(&self, mean: f64) -> T;
 }
 
 pub trait Min<T> {
@@ -61,6 +59,8 @@ pub trait InverseCDF {
     fn inv_cdf(&self, p: f64) -> f64;
 }
 
-pub trait ExpectedValue<T> {
-    fn expected(&self) -> T;
+// since E(X) is used the expected value
+#[allow(non_snake_case)]
+pub trait Expected<T> {
+    fn E(&self) -> T;
 }

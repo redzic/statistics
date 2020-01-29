@@ -19,11 +19,9 @@ impl Normal {
     }
 
     pub fn from(data: &[f64]) -> Self {
-        let mean = data.mean();
-
         Normal {
-            mean,
-            stdev: data.stdev_with_mean(mean),
+            mean: data.mean(),
+            stdev: data.stdev(),
         }
     }
 }
@@ -113,23 +111,11 @@ impl StdDev<f64> for Normal {
     fn stdev(&self) -> f64 {
         self.stdev
     }
-
-    // TODO clean up with API somehow with optional arguments
-    // (which I don't think are even possible)
-    // This function literally makes no sense in this case
-    // same thing for variance
-    fn stdev_with_mean(&self, _mean: f64) -> f64 {
-        self.stdev
-    }
 }
 
 impl Variance<f64> for Normal {
     fn variance(&self) -> f64 {
         self.stdev.powi(2)
-    }
-
-    fn variance_with_mean(&self, _mean: f64) -> f64 {
-        self.stdev
     }
 }
 

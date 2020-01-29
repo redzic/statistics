@@ -33,26 +33,16 @@ impl Variance<f64> for Binomial {
     fn variance(&self) -> f64 {
         self.n as f64 * self.p * (1.0 - self.p)
     }
-
-    // TODO refactor, this function shouldn't exist
-    fn variance_with_mean(&self, _mean: f64) -> f64 {
-        self.variance()
-    }
 }
 
 impl StdDev<f64> for Binomial {
     fn stdev(&self) -> f64 {
         self.variance().sqrt()
     }
-
-    // TODO remove function
-    fn stdev_with_mean(&self, _mean: f64) -> f64 {
-        self.stdev()
-    }
 }
 
-impl ExpectedValue<f64> for Binomial {
-    fn expected(&self) -> f64 {
+impl Expected<f64> for Binomial {
+    fn E(&self) -> f64 {
         self.n as f64 * self.p
     }
 }

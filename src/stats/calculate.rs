@@ -39,20 +39,11 @@ impl Variance<f64> for [f64] {
         self.iter().map(|i| (i - mean).powi(2)).sum::<f64>()
             / (self.len() as f64 - 1.0)
     }
-
-    fn variance_with_mean(&self, mean: f64) -> f64 {
-        self.iter().map(|i| (i - mean).powi(2)).sum::<f64>()
-            / (self.len() as f64 - 1.0)
-    }
 }
 
 impl StdDev<f64> for [f64] {
     fn stdev(&self) -> f64 {
         self.variance().sqrt()
-    }
-
-    fn stdev_with_mean(&self, mean: f64) -> f64 {
-        self.variance_with_mean(mean).sqrt()
     }
 }
 
