@@ -68,5 +68,5 @@ fn bench_binom(c: &mut Criterion) {
     c.bench_function("binom", |b| b.iter(|| binom_pdf()));
 }
 
-criterion_group!(benches, bench_norm_cdf);
+criterion_group!(benches, bench_erf);
 criterion_main!(benches);

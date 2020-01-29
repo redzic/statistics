@@ -133,7 +133,6 @@ impl Variance<f64> for Normal {
     }
 }
 
-// TODO allow choice between arbitrary precision and lossy algorithm
 impl CDF<f64> for Normal {
     fn cdf(&self, x: f64) -> f64 {
         0.5 * (1.0
@@ -267,6 +266,8 @@ impl InverseCDF for Normal {
 }
 
 impl PDF<f64> for Normal {
+    /// Compute the probability density function for the given
+    /// normal distribution at the given `x` value.
     fn pdf(&self, x: f64) -> f64 {
         (-0.5 * ((x - self.mean) / self.stdev).powi(2)).exp()
             / (self.stdev * (2.0 * std::f64::consts::PI).sqrt())

@@ -32,6 +32,9 @@ fn normal_dist_test() {
     );
 
     assert_eq!(dist.inv_cdf(0.5), 0.0);
+
+    // TODO implement almost_eq macro, this test really
+    // should pass.
     // assert_eq!(dist.inv_cdf(0.9750021048517796), 1.96);
 
     let temp_c = Normal::new(5.0, 2.5);
