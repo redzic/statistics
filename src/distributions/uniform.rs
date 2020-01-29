@@ -1,5 +1,7 @@
 use crate::stats::traits::*;
 
+// TODO add tests for uniform distribution
+
 #[derive(Debug, Copy, Clone)]
 pub struct Uniform {
     min: f64,
@@ -8,6 +10,10 @@ pub struct Uniform {
 
 impl Uniform {
     pub fn new(min: f64, max: f64) -> Self {
+        if max <= min {
+            panic!("max cannot be less than or equal to min");
+        }
+
         Uniform { min, max }
     }
 }

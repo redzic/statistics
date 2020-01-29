@@ -2,9 +2,6 @@ use crate::functions::gamma::*;
 use crate::stats::traits::*;
 
 pub struct T {
-    // TODO consider changing other distributions to use
-    // symbol names rather than descriptions of what they represent
-    // e.g. for normal distribution use mu and sigma, not mean and stdev
     // degrees of freedom
     nu: f64,
 }

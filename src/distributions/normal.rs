@@ -5,7 +5,6 @@ use std::ops::{Add, Mul, Sub};
 
 #[derive(Debug, Copy, Clone)]
 pub struct Normal {
-    // TODO rename to mu, sigma
     mu: f64,
     sigma: f64,
 }
@@ -130,8 +129,8 @@ impl CDF<f64> for Normal {
 impl InverseCDF for Normal {
     /// Compute the inverse cumulative distribution function for the given Normal
     /// distribution. Returns NaN if p < 0.0 or p > 1.0.
-    fn inv_cdf(&self, p: f64) -> f64 {
-        let q = p - 0.5;
+    fn inv_cdf(&self, a: f64) -> f64 {
+        let q = a - 0.5;
 
         let num: f64;
         let den: f64;
@@ -174,7 +173,7 @@ impl InverseCDF for Normal {
             return self.mu + (x * self.sigma);
         }
 
-        let mut r = if q <= 0.0 { p } else { 1.0 - p };
+        let mut r = if q <= 0.0 { a } else { 1.0 - a };
         r = (-r.ln()).sqrt();
 
         if r <= 5.0 {

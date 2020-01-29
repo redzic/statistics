@@ -56,7 +56,7 @@ pub trait PMF<T> {
 
 /// Inverse Cumulative Distribution Function
 pub trait InverseCDF {
-    fn inv_cdf(&self, p: f64) -> f64;
+    fn inv_cdf(&self, a: f64) -> f64;
 }
 
 // since E(X) is used the expected value
