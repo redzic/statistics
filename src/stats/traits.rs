@@ -61,6 +61,11 @@ pub trait InverseCDF {
 
 // since E(X) is used the expected value
 #[allow(non_snake_case)]
+/// Expected Value
 pub trait Expected<T> {
     fn E(&self) -> T;
+}
+
+pub trait Skewness<T> {
+    fn skewness(&self) -> T;
 }

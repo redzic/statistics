@@ -1,7 +1,7 @@
 use crate::stats::traits::*;
 use rug::{ops::Pow, Float, Integer};
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Poisson {
     lambda: f64,
 }
@@ -47,5 +47,11 @@ impl PMF<u32> for Poisson {
 impl CDF<u32> for Poisson {
     fn cdf(&self, k: u32) -> f64 {
         (0..k).map(|i| self.pmf(i)).sum::<f64>()
+    }
+}
+
+impl Skewness<f64> for Poisson {
+    fn skewness(&self) -> f64 {
+        1.0 / self.lambda.sqrt()
     }
 }

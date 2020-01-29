@@ -2,17 +2,15 @@ use ::statistics::*;
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
 
 fn normal_cdf(x: f64) {
-    let dist = Normal::new(0.0, 1.0);
-    dist.cdf(x);
+    Normal::new(0.0, 1.0).cdf(x);
 }
 
 fn normal_pdf(x: f64) {
-    let dist = Normal::new(0.0, 1.0);
-    dist.pdf(x);
+    Normal::new(0.0, 1.0).pdf(x);
 }
 
 fn bench_erf(c: &mut Criterion) {
-    let mut group = c.benchmark_group("Error function");
+    let mut group = c.benchmark_group("error function");
 
     for i in [-1.5, 0.0, 1.5].iter() {
         group.bench_with_input(BenchmarkId::new("erf", i), i, |b, i| {
@@ -24,7 +22,7 @@ fn bench_erf(c: &mut Criterion) {
 }
 
 fn bench_norm_cdf(c: &mut Criterion) {
-    let mut group = c.benchmark_group("Distrbutions");
+    let mut group = c.benchmark_group("normal CDF");
 
     for i in [-1.0, -0.5, 0.0, 0.5, 1.0].iter() {
         group.bench_with_input(BenchmarkId::new("normal_cdf", i), i, |b, i| {
@@ -36,7 +34,7 @@ fn bench_norm_cdf(c: &mut Criterion) {
 }
 
 fn bench_norm_pdf(c: &mut Criterion) {
-    let mut group = c.benchmark_group("Distrbutions");
+    let mut group = c.benchmark_group("normal PDF");
 
     for i in [-1.0, 0.0, 1.0].iter() {
         group.bench_with_input(BenchmarkId::new("normal_pdf", i), i, |b, i| {
@@ -67,6 +65,8 @@ fn bench_min_max(c: &mut Criterion) {
 fn bench_binom(c: &mut Criterion) {
     c.bench_function("binom", |b| b.iter(|| binom_pdf()));
 }
+
+// TODO benchmark gamma function
 
 criterion_group!(benches, bench_erf);
 criterion_main!(benches);

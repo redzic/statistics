@@ -5,23 +5,24 @@ use std::ops::{Add, Mul, Sub};
 
 #[derive(Debug, Copy, Clone)]
 pub struct Normal {
-    mean: f64,
-    stdev: f64,
+    // TODO rename to mu, sigma
+    mu: f64,
+    sigma: f64,
 }
 
 impl Normal {
-    pub fn new(mean: f64, stdev: f64) -> Self {
-        if stdev <= 0.0 {
+    pub fn new(mu: f64, sigma: f64) -> Self {
+        if sigma <= 0.0 {
             panic!("σ must be positive");
         }
 
-        Normal { mean, stdev }
+        Normal { mu, sigma }
     }
 
     pub fn from(data: &[f64]) -> Self {
         Normal {
-            mean: data.mean(),
-            stdev: data.stdev(),
+            mu: data.mean(),
+            sigma: data.stdev(),
         }
     }
 }
@@ -31,8 +32,8 @@ impl Add<Normal> for Normal {
 
     fn add(self, other: Self) -> Self {
         Self {
-            mean: self.mean + other.mean,
-            stdev: (self.stdev.powi(2) + other.stdev.powi(2)).sqrt(),
+            mu: self.mu + other.mu,
+            sigma: (self.sigma.powi(2) + other.sigma.powi(2)).sqrt(),
         }
     }
 }
@@ -42,8 +43,8 @@ impl Add<f64> for Normal {
 
     fn add(self, scalar: f64) -> Self {
         Self {
-            mean: self.mean + scalar,
-            stdev: self.stdev,
+            mu: self.mu + scalar,
+            sigma: self.sigma,
         }
     }
 }
@@ -53,8 +54,8 @@ impl Mul<f64> for Normal {
 
     fn mul(self, scalar: f64) -> Self {
         Self {
-            mean: self.mean * scalar,
-            stdev: self.stdev * scalar,
+            mu: self.mu * scalar,
+            sigma: self.sigma * scalar,
         }
     }
 }
@@ -66,8 +67,8 @@ impl Sub<Normal> for Normal {
 
     fn sub(self, other: Self) -> Self::Output {
         Self {
-            mean: self.mean - other.mean,
-            stdev: (self.stdev.powi(2) + other.stdev.powi(2)).sqrt(),
+            mu: self.mu - other.mu,
+            sigma: (self.sigma.powi(2) + other.sigma.powi(2)).sqrt(),
         }
     }
 }
@@ -77,52 +78,52 @@ impl Sub<f64> for Normal {
 
     fn sub(self, scalar: f64) -> Self {
         Self {
-            mean: self.mean - scalar,
-            stdev: self.stdev,
+            mu: self.mu - scalar,
+            sigma: self.sigma,
         }
     }
 }
 
 impl PartialEq for Normal {
     fn eq(&self, other: &Self) -> bool {
-        self.mean == other.mean && self.stdev == other.stdev
+        self.mu == other.mu && self.sigma == other.sigma
     }
 }
 
 impl Mean<f64> for Normal {
     fn mean(&self) -> f64 {
-        self.mean
+        self.mu
     }
 }
 
 impl Median<f64> for Normal {
     fn median(&self) -> f64 {
-        self.mean
+        self.mu
     }
 }
 
 impl Mode<f64> for Normal {
     fn mode(&self) -> f64 {
-        self.mean
+        self.mu
     }
 }
 
 impl StdDev<f64> for Normal {
     fn stdev(&self) -> f64 {
-        self.stdev
+        self.sigma
     }
 }
 
 impl Variance<f64> for Normal {
     fn variance(&self) -> f64 {
-        self.stdev.powi(2)
+        self.sigma.powi(2)
     }
 }
 
 impl CDF<f64> for Normal {
     fn cdf(&self, x: f64) -> f64 {
         0.5 * (1.0
-            + ((x - self.mean) / (self.stdev * std::f64::consts::SQRT_2)).erf())
+            + ((x - self.mu) / (self.sigma * std::f64::consts::SQRT_2)).erf())
     }
 }
 
@@ -170,7 +171,7 @@ impl InverseCDF for Normal {
                 + 1.0;
 
             let x = num / den;
-            return self.mean + (x * self.stdev);
+            return self.mu + (x * self.sigma);
         }
 
         let mut r = if q <= 0.0 { p } else { 1.0 - p };
@@ -247,7 +248,7 @@ impl InverseCDF for Normal {
             x = -x;
         }
 
-        self.mean + (x * self.stdev)
+        self.mu + (x * self.sigma)
     }
 }
 
@@ -255,7 +256,13 @@ impl PDF<f64> for Normal {
     /// Compute the probability density function for the given
     /// normal distribution at the given `x` value.
     fn pdf(&self, x: f64) -> f64 {
-        (-0.5 * ((x - self.mean) / self.stdev).powi(2)).exp()
-            / (self.stdev * (2.0 * std::f64::consts::PI).sqrt())
+        (-0.5 * ((x - self.mu) / self.sigma).powi(2)).exp()
+            / (self.sigma * (2.0 * std::f64::consts::PI).sqrt())
+    }
+}
+
+impl Skewness<f64> for Normal {
+    fn skewness(&self) -> f64 {
+        0.0
     }
 }

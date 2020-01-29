@@ -69,3 +69,9 @@ impl CDF<f64> for Uniform {
         }
     }
 }
+
+impl Skewness<f64> for Uniform {
+    fn skewness(&self) -> f64 {
+        0.0
+    }
+}
