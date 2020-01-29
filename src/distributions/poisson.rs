@@ -44,6 +44,7 @@ impl PMF<u32> for Poisson {
 }
 
 /// P(X < k)
+// TODO maybe switch to other algorithm
 impl CDF<u32> for Poisson {
     fn cdf(&self, k: u32) -> f64 {
         (0..k).map(|i| self.pmf(i)).sum::<f64>()
