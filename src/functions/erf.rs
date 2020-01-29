@@ -6,6 +6,12 @@ use std::cmp::Ordering;
 // because for some reason it's still about 5ns slower
 // than the C version on my computer
 
+pub trait Error {
+    fn erf(&self) -> f64;
+    fn erfc(&self) -> f64;
+    fn inv_erf(&self) -> f64;
+}
+
 #[inline]
 fn get_high_word(x: f64) -> u32 {
     (x.to_bits() >> 32) as u32
@@ -17,12 +23,6 @@ fn with_set_low_word(f: f64, lo: u32) -> f64 {
     tmp &= 0xffffffff_00000000;
     tmp |= lo as u64;
     f64::from_bits(tmp)
-}
-
-pub trait Error {
-    fn erf(&self) -> f64;
-    fn erfc(&self) -> f64;
-    fn inv_erf(&self) -> f64;
 }
 
 const ERX: f64 = 8.45062911510467529297e-01; /* 0x3FEB0AC1, 0x60000000 */
