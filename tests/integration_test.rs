@@ -32,8 +32,8 @@ fn normal_dist() {
     let dist = Normal::new(0.0, 1.0);
     assert_eq!(dist.cdf(0.0), 0.5);
     assert_eq!(dist.cdf(1.96), 0.9750021048517796);
-    assert_approx_eq!(dist.inv_cdf(0.9750021048517796), 1.96);
-    assert_eq!(dist.inv_cdf(0.5), 0.0);
+    assert_approx_eq!(dist.ppf(0.9750021048517796), 1.96);
+    assert_eq!(dist.ppf(0.5), 0.0);
 
     assert_eq!(0.0.erf(), 0.0);
     assert_eq!(1.25.erf(), 0.9229001282564582);
@@ -54,6 +54,8 @@ fn normal_dist() {
 fn t_dist() {
     assert_approx_eq!(T::new(1.0).pdf(1.0), 0.15915494309189534);
     assert_approx_eq!(T::new(2.0).pdf(1.0), 0.192450089729875);
+    // TODO add tests for invalid ranges
+    assert_eq!(beta_inc(1.0, 3.0, 0.02), 0.058808);
 }
 
 #[test]

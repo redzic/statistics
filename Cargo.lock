@@ -543,6 +543,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "special"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24a65e074159b75dcf173a4733ab2188baac24967b5c8ec9ed87ae15fcbc7636"
+dependencies = [
+ "libc",
+]
+
+[[package]]
 name = "statistics"
 version = "0.1.0"
 dependencies = [
@@ -551,6 +560,7 @@ dependencies = [
  "libm",
  "rayon",
  "rug",
+ "special",
 ]
 
 [[package]]

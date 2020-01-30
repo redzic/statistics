@@ -126,10 +126,10 @@ impl CDF<f64> for Normal {
     }
 }
 
-impl InverseCDF for Normal {
+impl PPF for Normal {
     /// Compute the inverse cumulative distribution function for the given Normal
     /// distribution. Returns NaN if p < 0.0 or p > 1.0.
-    fn inv_cdf(&self, a: f64) -> f64 {
+    fn ppf(&self, a: f64) -> f64 {
         let q = a - 0.5;
 
         let num: f64;

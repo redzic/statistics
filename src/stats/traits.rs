@@ -54,9 +54,9 @@ pub trait PMF<T> {
     fn pmf(&self, x: T) -> f64;
 }
 
-/// Inverse Cumulative Distribution Function
-pub trait InverseCDF {
-    fn inv_cdf(&self, a: f64) -> f64;
+/// Percentile Point Function (Inverse Cumulative Distribution Function)
+pub trait PPF {
+    fn ppf(&self, a: f64) -> f64;
 }
 
 // since E(X) is used the expected value

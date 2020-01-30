@@ -1,3 +1,4 @@
+use crate::functions::beta::*;
 use crate::functions::gamma::*;
 use crate::stats::traits::*;
 
@@ -17,5 +18,11 @@ impl PDF<f64> for T {
         ((0.5 * (self.nu + 1.0)).gamma()
             / ((self.nu * std::f64::consts::PI).sqrt() * (0.5 * self.nu).gamma()))
             * (1.0 + t.powi(2) / self.nu).powf(-0.5 * (self.nu + 1.0))
+    }
+}
+
+impl CDF<f64> for T {
+    fn cdf(&self, t: f64) -> f64 {
+        1.0 - 0.5 * beta_inc(self.nu / (t.powi(2) + self.nu), 0.5 * self.nu, 0.5)
     }
 }
