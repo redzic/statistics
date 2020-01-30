@@ -1,6 +1,7 @@
 use super::factorial::*;
 use super::gamma::*;
 
+// NOTE: this function doesn't work
 // this formatting makes the most sense in this case
 #[allow(non_snake_case)]
 pub fn hyper_2F1(a: f64, b: f64, c: f64, z: f64) -> f64 {

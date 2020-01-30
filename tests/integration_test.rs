@@ -55,7 +55,10 @@ fn t_dist() {
     assert_approx_eq!(T::new(1.0).pdf(1.0), 0.15915494309189534);
     assert_approx_eq!(T::new(2.0).pdf(1.0), 0.192450089729875);
     // TODO add tests for invalid ranges
+    // TODO just add more tests in general
     assert_eq!(beta_inc(1.0, 3.0, 0.02), 0.058808);
+    let dist = T::new(1.0);
+    assert_eq!(dist.cdf(0.0), 0.5);
 }
 
 #[test]
