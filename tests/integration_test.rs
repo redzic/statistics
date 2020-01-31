@@ -59,6 +59,8 @@ fn t_dist() {
     assert_eq!(beta_inc(1.0, 3.0, 0.02), 0.058808);
     let dist = T::new(1.0);
     assert_eq!(dist.cdf(0.0), 0.5);
+    // TODO compute exact value in arbitrary precision through SymPy / mpmath
+    assert_approx_eq!(T::new(15.0).cdf(1.25), 0.88477470);
 }
 
 #[test]

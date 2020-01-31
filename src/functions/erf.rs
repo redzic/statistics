@@ -1,6 +1,7 @@
 use std::cmp::Ordering;
 
 // TODO move these functions to other file
+// TODO consider porting version from https://github.com/JuliaMath/openlibm
 
 // Do some performance testing on the erf functions
 // because for some reason it's still about 5ns slower
@@ -336,7 +337,7 @@ fn erfc(x: f64) -> f64 {
     }
 }
 
-#[inline]
+// #[inline]
 fn sign(x: f64) -> f64 {
     match x.partial_cmp(&0f64).unwrap() {
         Ordering::Equal => 0.0,

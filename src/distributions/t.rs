@@ -23,7 +23,6 @@ impl PDF<f64> for T {
 
 impl CDF<f64> for T {
     fn cdf(&self, t: f64) -> f64 {
-        let x_t = self.nu / (t * t + self.nu);
-        1.0 - 0.5 * beta_inc(0.5 * self.nu, 0.5, x_t)
+        1.0 - 0.5 * beta_inc(0.5 * self.nu, 0.5, self.nu / (t.powi(2) + self.nu))
     }
 }
