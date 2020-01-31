@@ -16,6 +16,4 @@ harness = false
 [dependencies]
 rayon = "1.3.0"
 rug = "1.7.0"
-# TODO implement these dependencies
 assert_approx_eq = "1.1.0"
-special = "0.8.1"

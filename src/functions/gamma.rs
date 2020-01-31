@@ -130,23 +130,20 @@ fn s(x: f64) -> f64 {
 
 fn tgamma(mut x: f64) -> f64 {
     let u: u64 = x.to_bits();
-    let absx: f64;
-    let mut y: f64;
     let mut dy: f64;
-    let mut z: f64;
-    let mut r: f64;
     let ix: u32 = ((u >> 32) as u32) & 0x7fffffff;
-    let sign: bool = (u >> 63) != 0;
 
     /* special cases */
     if ix >= 0x7ff00000 {
         /* tgamma(nan)=nan, tgamma(inf)=inf, tgamma(-inf)=nan with invalid */
-        return x + core::f64::INFINITY;
+        return x + std::f64::INFINITY;
     }
     if ix < ((0x3ff - 54) << 20) {
         /* |x| < 2^-54: tgamma(x) ~ 1/x, +-0 raises div-by-zero */
         return 1.0 / x;
     }
+
+    let sign: bool = (u >> 63) != 0;
 
     /* integer arguments */
     /* raise inexact when non-integer */
@@ -158,7 +155,6 @@ fn tgamma(mut x: f64) -> f64 {
             return FACT[(x as usize) - 1];
         }
     }
-
     /* x >= 172: tgamma(x)=inf with overflow */
     /* x =< -184: tgamma(x)=+-0 with underflow */
     if ix >= 0x40670000 {
@@ -179,10 +175,10 @@ fn tgamma(mut x: f64) -> f64 {
         return x;
     }
 
-    absx = if sign { -x } else { x };
+    let absx = if sign { -x } else { x };
 
     /* handle the error of x + g - 0.5 */
-    y = absx + GMHALF;
+    let mut y = absx + GMHALF;
     if absx > GMHALF {
         dy = y - absx;
         dy -= GMHALF;
@@ -191,8 +187,8 @@ fn tgamma(mut x: f64) -> f64 {
         dy -= absx;
     }
 
-    z = absx - 0.5;
-    r = s(absx) * (-y).exp();
+    let mut z = absx - 0.5;
+    let mut r = s(absx) * (-y).exp();
     if x < 0.0 {
         /* reflection formula for negative x */
         /* sinpi(absx) is not 0, integers are already handled */

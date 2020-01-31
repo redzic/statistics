@@ -1,6 +1,5 @@
 use std::cmp::Ordering;
 
-// TODO move these functions to other file
 // TODO consider porting version from https://github.com/JuliaMath/openlibm
 
 // Do some performance testing on the erf functions
@@ -117,6 +116,8 @@ pub trait Error {
     fn erfc(&self) -> f64;
     fn inv_erf(&self) -> f64;
 }
+
+// TODO move these function to other file
 
 #[inline]
 fn get_high_word(x: f64) -> u32 {
