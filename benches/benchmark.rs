@@ -1,5 +1,6 @@
 use ::statistics::*;
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
+use rand::Rng;
 
 fn normal_cdf(x: f64) {
     Normal::new(0.0, 1.0).cdf(x);
@@ -7,6 +8,23 @@ fn normal_cdf(x: f64) {
 
 fn normal_pdf(x: f64) {
     Normal::new(0.0, 1.0).pdf(x);
+}
+
+fn random_data(x: u32) -> Vec<f64> {
+    let mut rng = rand::thread_rng();
+    (0..x).map(|_| rng.gen_range(-10.0, 10.0)).collect()
+}
+
+fn bench_stats(c: &mut Criterion) {
+    let mut group = c.benchmark_group("stats");
+
+    for i in [100, 1000, 5000, 15000, 150000].iter() {
+        group.bench_with_input(BenchmarkId::new("stats", i), i, |b, i| {
+            b.iter(|| random_data(*i).median())
+        });
+    }
+
+    group.finish();
 }
 
 fn bench_erf(c: &mut Criterion) {
@@ -81,5 +99,5 @@ fn bench_binom(c: &mut Criterion) {
 
 // TODO benchmark gamma function
 
-criterion_group!(benches, bench_t);
+criterion_group!(benches, bench_stats);
 criterion_main!(benches);
