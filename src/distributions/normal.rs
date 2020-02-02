@@ -126,7 +126,7 @@ impl CDF<f64> for Normal {
     }
 }
 
-impl PPF for Normal {
+impl PPF<f64> for Normal {
     /// Compute the inverse cumulative distribution function for the given Normal
     /// distribution. Returns NaN if p < 0.0 or p > 1.0.
     fn ppf(&self, a: f64) -> f64 {

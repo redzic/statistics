@@ -1,28 +1,27 @@
 /*
-"A Precision Approximation of the Gamma Function" - Cornelius Lanczos (1964)
-"Lanczos Implementation of the Gamma Function" - Paul Godfrey (2001)
-"An Analysis of the Lanczos Gamma Approximation" - Glendon Ralph Pugh (2004)
-
-approximation method:
-
-                        (x - 0.5)         S(x)
-Gamma(x) = (x + g - 0.5)         *  ----------------
-                                    exp(x + g - 0.5)
-
-with
-                 a1      a2      a3            aN
-S(x) ~= [ a0 + ----- + ----- + ----- + ... + ----- ]
-               x + 1   x + 2   x + 3         x + N
-
-with a0, a1, a2, a3,.. aN constants which depend on g.
-
-for x < 0 the following reflection formula is used:
-
-Gamma(x)*Gamma(-x) = -pi/(x sin(pi x))
-
-most ideas and constants are from boost and python
-*/
-// use super::{exp, floor, k_cos, k_sin, pow};
+ * "A Precision Approximation of the Gamma Function" - Cornelius Lanczos (1964)
+ * "Lanczos Implementation of the Gamma Function" - Paul Godfrey (2001)
+ * "An Analysis of the Lanczos Gamma Approximation" - Glendon Ralph Pugh (2004)
+ *
+ * approximation method:
+ *
+ *                         (x - 0.5)         S(x)
+ * Gamma(x) = (x + g - 0.5)         *  ----------------
+ *                                     exp(x + g - 0.5)
+ *
+ * with
+ *                  a1      a2      a3            aN
+ * S(x) ~= [ a0 + ----- + ----- + ----- + ... + ----- ]
+ *                x + 1   x + 2   x + 3         x + N
+ *
+ * with a0, a1, a2, a3,.. aN constants which depend on g.
+ *
+ * for x < 0 the following reflection formula is used:
+ *
+ * Gamma(x)*Gamma(-x) = -pi/(x sin(pi x))
+ *
+ * most ideas and constants are from boost and python
+ */
 
 /* sin(pi x) with x > 0x1p-100, if sin(pi*x)==0 the sign is arbitrary */
 
@@ -149,7 +148,7 @@ fn tgamma(mut x: f64) -> f64 {
     /* raise inexact when non-integer */
     if x == x.floor() {
         if sign {
-            return 0.0 / 0.0;
+            return std::f64::NAN;
         }
         if x <= FACT.len() as f64 {
             return FACT[(x as usize) - 1];

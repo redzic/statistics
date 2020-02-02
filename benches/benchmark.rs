@@ -21,6 +21,19 @@ fn bench_erf(c: &mut Criterion) {
     group.finish();
 }
 
+fn bench_t(c: &mut Criterion) {
+    let mut group = c.benchmark_group("T distribution");
+
+    let dist = T::new(1);
+    for i in [0.0, 0.5].iter() {
+        group.bench_with_input(BenchmarkId::new("t_inv_cdf", i), i, |b, i| {
+            b.iter(|| dist.ppf(*i))
+        });
+    }
+
+    group.finish();
+}
+
 fn bench_norm_cdf(c: &mut Criterion) {
     let mut group = c.benchmark_group("normal CDF");
 
@@ -68,5 +81,5 @@ fn bench_binom(c: &mut Criterion) {
 
 // TODO benchmark gamma function
 
-criterion_group!(benches, bench_erf);
+criterion_group!(benches, bench_t);
 criterion_main!(benches);

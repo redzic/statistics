@@ -94,7 +94,7 @@ impl Max<f64> for [f64] {
 
 impl BinomCoeff for u64 {
     fn choose(&self, mut k: u64) -> u64 {
-        let mut b = 1u64;
+        let mut b: u64 = 1;
 
         if k > self - k {
             k = self - k;
