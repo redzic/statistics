@@ -36,6 +36,7 @@ pub fn beta_inc(a: f64, b: f64, x: f64) -> f64 {
     x.beta_inc(a, b)
 }
 
+/// Computes the regularized incomplete beta function
 impl Beta for f64 {
     // Copied from `special` crate
     fn beta_inc(self, mut p: Self, mut q: Self) -> Self {

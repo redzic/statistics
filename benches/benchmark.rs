@@ -1,4 +1,6 @@
-use ::statistics::*;
+use ::statistics::distributions::*;
+use ::statistics::functions::*;
+use ::statistics::stats::*;
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
 use rand::Rng;
 
@@ -30,7 +32,7 @@ fn bench_stats(c: &mut Criterion) {
 fn bench_erf(c: &mut Criterion) {
     let mut group = c.benchmark_group("error function");
 
-    for i in [-1.5, 0.0, 1.5].iter() {
+    for i in [-1.5f64, 0f64, 1.5f64].iter() {
         group.bench_with_input(BenchmarkId::new("erf", i), i, |b, i| {
             b.iter(|| (*i).erf())
         });

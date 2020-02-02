@@ -1,22 +1,20 @@
-//! Statistical library in Rust
+//! This crate is a
+//!
+//! # Example
+//! The following example samples from a standard normal distribution
+//!
+//! ```
+//! use statistics::distributions::*;
+//! use statistics::stats::*;
+//!
+//! # fn main() {
+//! let n = Normal::new(0.0, 1.0);
+//! println!("{}", n.cdf(-1.0));
+//! // percent-point function (inverse cdf)
+//! println!("{}", n.ppf(1.0));
+//! # }
+//! ```
 
 pub mod distributions;
 pub mod functions;
 pub mod stats;
-
-pub use crate::distributions::binomial::*;
-pub use crate::distributions::degenerate::*;
-pub use crate::distributions::exponential::*;
-pub use crate::distributions::normal::*;
-pub use crate::distributions::poisson::*;
-pub use crate::distributions::t::*;
-pub use crate::distributions::uniform::*;
-pub use crate::distributions::weibull::*;
-
-pub use crate::functions::beta::*;
-pub use crate::functions::erf::*;
-pub use crate::functions::factorial::*;
-pub use crate::functions::gamma::*;
-
-pub use crate::stats::calculate::*;
-pub use crate::stats::traits::*;

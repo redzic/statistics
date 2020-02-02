@@ -66,6 +66,18 @@ impl Variance<f64> for Exponential {
     }
 }
 
+impl Min<f64> for Exponential {
+    fn min(&self) -> f64 {
+        0.0
+    }
+}
+
+impl Max<f64> for Exponential {
+    fn max(&self) -> f64 {
+        std::f64::INFINITY
+    }
+}
+
 impl Skewness<f64> for Exponential {
     fn skewness(&self) -> f64 {
         2.0

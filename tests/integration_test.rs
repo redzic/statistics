@@ -1,6 +1,8 @@
 // TODO implement this within this crate
 use assert_approx_eq::assert_approx_eq;
-use statistics::*;
+use statistics::distributions::*;
+use statistics::functions::*;
+use statistics::stats::*;
 
 // The exact floating point numbers are derived externally from SymPy,
 // Which is then rounded at 16 decimal places
@@ -67,6 +69,13 @@ fn t_dist() {
         let i = i as f64 * 0.01;
         assert_approx_eq!(dist.ppf(dist.cdf(i)), i);
     }
+}
+
+#[test]
+fn exp_test() {
+    let dist = Exponential::new(1.0);
+    assert_eq!(dist.mean(), 1.0);
+    assert_eq!(dist.pdf(1.0), 0.3678794411714423215955);
 }
 
 #[test]

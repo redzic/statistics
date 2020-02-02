@@ -17,6 +17,7 @@ impl Factorial<f64> for f64 {
         (self + n).gamma() / self.gamma()
     }
 
+    /// Factorial
     fn factorial(&self) -> f64 {
         (self - 1.0).gamma()
     }
