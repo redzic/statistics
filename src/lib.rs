@@ -6,6 +6,7 @@ pub mod stats;
 
 pub use crate::distributions::binomial::*;
 pub use crate::distributions::degenerate::*;
+pub use crate::distributions::exponential::*;
 pub use crate::distributions::normal::*;
 pub use crate::distributions::poisson::*;
 pub use crate::distributions::t::*;
