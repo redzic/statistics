@@ -14,7 +14,6 @@ pub use crate::functions::beta::*;
 pub use crate::functions::erf::*;
 pub use crate::functions::factorial::*;
 pub use crate::functions::gamma::*;
-// pub use crate::functions::hyper::*;
 
 pub use crate::stats::calculate::*;
 pub use crate::stats::traits::*;

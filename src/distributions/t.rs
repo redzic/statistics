@@ -128,15 +128,32 @@ impl CDF<f64> for T {
 }
 
 impl PPF<f64> for T {
+    /// Compute the percent-point function (or inverse cumulative distribution function)
+    /// for the given t-distribution. Uses bisection algorithm for approximation.
+    /// Works for `df < 341`, after which it will be stuck in an infinite loop. Not very
+    /// accurate for large df and/or close to 0 or 1 area.
     fn ppf(&self, q: f64) -> f64 {
         // TODO switch to better algorithm than guess and check
         // find the value p such that self.cdf(p) = q
 
-        const EPSILON: f64 = 1.0e-12f64;
-
+        // special cases
         if q == 0.5 {
             return 0.0;
         }
+
+        if q < 0.0 || q > 1.0 {
+            return std::f64::NAN;
+        }
+
+        if q == 0.0 {
+            return std::f64::NEG_INFINITY;
+        }
+
+        if q == 1.0 {
+            return std::f64::INFINITY;
+        }
+
+        const EPSILON: f64 = 1.11022302462515654042e-16;
 
         // TODO correctly determine min/max bounds
         let mut bound = 1000000.0;
