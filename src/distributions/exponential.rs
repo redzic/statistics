@@ -50,6 +50,16 @@ impl CDF<f64> for Exponential {
     }
 }
 
+impl PPF<f64> for Exponential {
+    fn ppf(&self, p: f64) -> f64 {
+        if 0.0 <= p && p < 1.0 {
+            -(1.0 - p).ln() / self.lambda
+        } else {
+            std::f64::NAN
+        }
+    }
+}
+
 impl Variance<f64> for Exponential {
     fn variance(&self) -> f64 {
         1.0 / self.lambda.powi(2)
