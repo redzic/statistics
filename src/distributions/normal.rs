@@ -19,6 +19,7 @@ impl Normal {
     }
 
     pub fn from(data: &[f64]) -> Self {
+        // TODO remove redundant mean calculation
         Normal {
             mu: data.mean(),
             sigma: data.stdev(),

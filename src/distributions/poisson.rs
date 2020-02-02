@@ -18,6 +18,13 @@ impl Mean<f64> for Poisson {
     }
 }
 
+impl Median<f64> for Poisson {
+    /// Approximate the median for the Poisson distribution
+    fn median(&self) -> f64 {
+        (self.lambda + 1.0 / 3.0 - 0.02 / self.lambda).floor()
+    }
+}
+
 impl Variance<f64> for Poisson {
     fn variance(&self) -> f64 {
         self.lambda

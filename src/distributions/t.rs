@@ -153,7 +153,7 @@ impl PPF<f64> for T {
             return std::f64::INFINITY;
         }
 
-        const EPSILON: f64 = 1.11022302462515654042e-16;
+        const EPSILON: f64 = 1e-15;
 
         // TODO correctly determine min/max bounds
         let mut bound = 1000000.0;
@@ -188,5 +188,48 @@ impl PPF<f64> for T {
         }
 
         p
+    }
+}
+
+impl Variance<f64> for T {
+    fn variance(&self) -> f64 {
+        if self.df > 2 {
+            self.df as f64 / (self.df as f64 - 2.0)
+        } else if self.df > 1 {
+            std::f64::INFINITY
+        } else {
+            // undefined
+            std::f64::NAN
+        }
+    }
+}
+
+impl StdDev<f64> for T {
+    fn stdev(&self) -> f64 {
+        self.variance().sqrt()
+    }
+}
+
+impl Mean<f64> for T {
+    fn mean(&self) -> f64 {
+        0.0
+    }
+}
+
+impl Expected<f64> for T {
+    fn E(&self) -> f64 {
+        0.0
+    }
+}
+
+impl Mode<f64> for T {
+    fn mode(&self) -> f64 {
+        0.0
+    }
+}
+
+impl Median<f64> for T {
+    fn median(&self) -> f64 {
+        0.0
     }
 }
