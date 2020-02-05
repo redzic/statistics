@@ -3,7 +3,7 @@
 use crate::stats::traits::*;
 use std::convert::TryInto;
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Binomial {
     n: u64,
     p: f64,
