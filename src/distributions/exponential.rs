@@ -1,3 +1,5 @@
+//! Implementation of the [Exponential](https://en.wikipedia.org/wiki/Exponential_distribution) distribution
+
 use crate::stats::traits::*;
 
 #[derive(Debug, Copy, Clone)]

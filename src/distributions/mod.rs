@@ -1,3 +1,8 @@
+//! Implements probability distributions and functions related to them,
+//! such as the cumulative distribution function, probability density function,
+//! as well as computations of various statistical measures, such as mean,
+//! median, variance, etc.
+
 pub mod binomial;
 pub mod degenerate;
 pub mod exponential;

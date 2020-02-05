@@ -1,3 +1,5 @@
+//! Implementation of the [Binomial](https://en.wikipedia.org/wiki/Binomial_distribution) distribution
+
 use crate::stats::traits::*;
 use std::convert::TryInto;
 

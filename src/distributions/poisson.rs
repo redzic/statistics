@@ -1,3 +1,5 @@
+//! Implementation of the [Poisson](https://en.wikipedia.org/wiki/Poisson_distribution) distribution
+
 use crate::stats::traits::*;
 use rug::{ops::Pow, Float, Integer};
 

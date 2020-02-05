@@ -1,3 +1,5 @@
+//! Implementation of the [Continuous Uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) distribution
+
 use crate::stats::traits::*;
 
 // TODO add tests for uniform distribution

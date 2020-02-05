@@ -1,3 +1,5 @@
+//! Implementation of the [Degenerate](https://en.wikipedia.org/wiki/Degenerate_distribution) distribution
+
 use crate::stats::traits::*;
 
 #[derive(Debug, Copy, Clone)]

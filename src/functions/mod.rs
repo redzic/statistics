@@ -1,3 +1,5 @@
+//! Provides various utility statistical functions (e.g. gamma, erf, etc.)
+
 pub mod beta;
 pub mod erf;
 pub mod factorial;

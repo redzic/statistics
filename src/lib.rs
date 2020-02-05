@@ -1,4 +1,8 @@
-//! This crate is a
+//! This crate provides various tools for statistical computation that
+//! can be very difficult to manually implement. It provides various
+//! probability distributions and methods to calculate things such as
+//! the cumulative density function, percent-point function (inverse CDF),
+//! probability density function, and more.
 //!
 //! # Example
 //! The following example samples from a standard normal distribution

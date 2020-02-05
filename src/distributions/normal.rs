@@ -1,8 +1,11 @@
+//! Implementation of the [Normal](https://en.wikipedia.org/wiki/Normal_distribution) (Gaussian) distribution
+
 use crate::functions::erf::*;
 use crate::stats::traits::*;
 use std::cmp::PartialEq;
 use std::ops::{Add, Mul, Sub};
 
+/// Normal distribution with mean `mu` and standard deviation `sigma`
 #[derive(Debug, Copy, Clone)]
 pub struct Normal {
     mu: f64,
@@ -10,6 +13,8 @@ pub struct Normal {
 }
 
 impl Normal {
+    /// Creates a new normal distribution with mean `mu` and standard deviation `sigma`.
+    /// Panics if `sigma` is less than or equal to zero.
     pub fn new(mu: f64, sigma: f64) -> Self {
         if sigma <= 0.0 {
             panic!("σ must be positive");
@@ -18,6 +23,8 @@ impl Normal {
         Normal { mu, sigma }
     }
 
+    /// Creates a new normal distribution with mean and standard deviation equal
+    /// to the mean and standard deviation from the provided array of `f64`s.
     pub fn from(data: &[f64]) -> Self {
         // TODO remove redundant mean calculation
         Normal {

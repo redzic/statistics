@@ -1,3 +1,5 @@
+//! Implementation of the [Weibull](https://en.wikipedia.org/wiki/Weibull_distribution) distribution
+
 use crate::functions::gamma::*;
 use crate::stats::traits::*;
 

@@ -1,3 +1,5 @@
+//! Implementation of the [t-distribution](https://en.wikipedia.org/wiki/Student%27s_t-distribution)
+
 use crate::functions::beta::*;
 use crate::functions::gamma::*;
 use crate::stats::traits::*;
@@ -24,12 +26,14 @@ use crate::stats::traits::*;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/// Student's t-distribution
 pub struct T {
     // degrees of freedom
     df: i32,
 }
 
 impl T {
+    /// Creates a new t-distribution with `df` degrees of freedom.
     pub fn new(df: i32) -> Self {
         T { df }
     }
@@ -46,8 +50,7 @@ impl PDF<f64> for T {
 
 impl CDF<f64> for T {
     fn cdf(&self, q: f64) -> f64 {
-        // port of SciPy's implementation, because it is much
-        // faster than the previous one
+        // port of SciPy's implementation
         const MACHEP: f64 = 1.11022302462515654042e-16;
 
         if self.df <= 0 {
