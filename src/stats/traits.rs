@@ -56,7 +56,7 @@ pub trait PPF<T> {
     fn ppf(&self, a: T) -> f64;
 }
 
-// since E(X) is used the expected value
+// since E(X) is used for the expected value
 #[allow(non_snake_case)]
 /// Expected Value
 pub trait Expected<T> {
@@ -65,4 +65,12 @@ pub trait Expected<T> {
 
 pub trait Skewness<T> {
     fn skewness(&self) -> T;
+}
+
+pub trait ExcessKurtosis<T> {
+    fn ex_kurtosis(&self) -> T;
+}
+
+pub trait Entropy<T> {
+    fn entropy(&self) -> T;
 }

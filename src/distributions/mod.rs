@@ -5,6 +5,7 @@
 
 pub mod binomial;
 pub mod cauchy;
+pub mod chi;
 pub mod degenerate;
 pub mod exponential;
 pub mod gamma;
@@ -18,6 +19,7 @@ pub mod weibull;
 
 pub use super::distributions::binomial::*;
 pub use super::distributions::cauchy::*;
+pub use super::distributions::chi::*;
 pub use super::distributions::degenerate::*;
 pub use super::distributions::exponential::*;
 pub use super::distributions::gamma::*;
