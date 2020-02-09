@@ -72,4 +72,8 @@ impl Variance<f64> for Weibull {
             * ((1.0 + 2.0 / self.k).gamma()
                 - (1.0 + 1.0 / self.k).gamma().powi(2))
     }
+
+    fn stdev(&self) -> f64 {
+        self.variance().sqrt()
+    }
 }

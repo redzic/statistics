@@ -66,6 +66,10 @@ impl Variance<f64> for Exponential {
     fn variance(&self) -> f64 {
         1.0 / self.lambda.powi(2)
     }
+
+    fn stdev(&self) -> f64 {
+        self.variance().sqrt()
+    }
 }
 
 impl Min<f64> for Exponential {

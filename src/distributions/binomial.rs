@@ -35,9 +35,7 @@ impl Variance<f64> for Binomial {
     fn variance(&self) -> f64 {
         self.n as f64 * self.p * (1.0 - self.p)
     }
-}
 
-impl StdDev<f64> for Binomial {
     fn stdev(&self) -> f64 {
         self.variance().sqrt()
     }

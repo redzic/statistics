@@ -88,9 +88,7 @@ impl Variance<f64> for Triangular {
             - self.b * self.c)
             / 18.0
     }
-}
 
-impl StdDev<f64> for Triangular {
     fn stdev(&self) -> f64 {
         self.variance().sqrt()
     }

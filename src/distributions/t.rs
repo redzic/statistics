@@ -27,6 +27,7 @@ use crate::stats::traits::*;
  */
 
 /// Student's t-distribution
+#[derive(Debug, Copy, Clone)]
 pub struct T {
     // degrees of freedom
     df: i32,
@@ -205,9 +206,7 @@ impl Variance<f64> for T {
             std::f64::NAN
         }
     }
-}
 
-impl StdDev<f64> for T {
     fn stdev(&self) -> f64 {
         self.variance().sqrt()
     }

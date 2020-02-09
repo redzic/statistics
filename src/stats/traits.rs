@@ -18,12 +18,9 @@ pub trait Mode<T> {
     fn mode(&self) -> T;
 }
 
-pub trait StdDev<T> {
-    fn stdev(&self) -> T;
-}
-
 pub trait Variance<T> {
     fn variance(&self) -> T;
+    fn stdev(&self) -> T;
 }
 
 pub trait Min<T> {

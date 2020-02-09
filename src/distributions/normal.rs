@@ -115,15 +115,13 @@ impl Mode<f64> for Normal {
     }
 }
 
-impl StdDev<f64> for Normal {
-    fn stdev(&self) -> f64 {
-        self.sigma
-    }
-}
-
 impl Variance<f64> for Normal {
     fn variance(&self) -> f64 {
         self.sigma.powi(2)
+    }
+
+    fn stdev(&self) -> f64 {
+        self.sigma
     }
 }
 

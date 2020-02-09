@@ -31,9 +31,7 @@ impl Variance<f64> for Poisson {
     fn variance(&self) -> f64 {
         self.lambda
     }
-}
 
-impl StdDev<f64> for Poisson {
     fn stdev(&self) -> f64 {
         self.variance().sqrt()
     }

@@ -35,9 +35,7 @@ impl Variance<f64> for Degenerate {
     fn variance(&self) -> f64 {
         0.0
     }
-}
 
-impl StdDev<f64> for Degenerate {
     fn stdev(&self) -> f64 {
         0.0
     }

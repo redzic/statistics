@@ -1,4 +1,3 @@
-// TODO implement this within this crate
 use assert_approx_eq::assert_approx_eq;
 use statistics::distributions::*;
 use statistics::functions::*;
@@ -56,12 +55,9 @@ fn normal_dist() {
 fn t_dist() {
     assert_approx_eq!(T::new(1).pdf(1.0), 0.15915494309189534);
     assert_approx_eq!(T::new(2).pdf(1.0), 0.192450089729875);
-    // TODO add tests for invalid ranges
-    // TODO just add more tests in general
     assert_eq!(beta_inc(1.0, 3.0, 0.02), 0.058808);
     let dist = T::new(1);
     assert_eq!(dist.cdf(0.0), 0.5);
-    // TODO verify with exact value in arbitrary precision through SymPy / mpmath
     assert_approx_eq!(T::new(15).cdf(1.25), 0.88477470);
 
     let dist = T::new(1);
@@ -72,7 +68,15 @@ fn t_dist() {
 }
 
 #[test]
-fn exp_test() {
+fn gamma_dist() {
+    let dist = Gamma::new(5.0, 2.0);
+
+    assert_eq!(dist.pdf(0.0), 0.0);
+    // TODO add more tests
+}
+
+#[test]
+fn exp_dist() {
     let dist = Exponential::new(1.0);
     assert_eq!(dist.mean(), 1.0);
     assert_eq!(dist.pdf(1.0), 0.3678794411714423215955);

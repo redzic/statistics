@@ -1,4 +1,4 @@
-use crate::functions::gamma::Gamma;
+use crate::functions::gamma::GammaFunction;
 
 /* Copyright 2014–2019 The special Developers
  *
@@ -20,12 +20,13 @@ use crate::functions::gamma::Gamma;
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-pub trait Beta {
+pub trait BetaFunction {
     fn beta_inc(self, p: Self, q: Self) -> Self;
 }
 
 pub fn beta(x: f64, y: f64) -> f64 {
     // TODO add check for negative integers
+    // TODO test for lgamma performance
     (x.gamma() * y.gamma()) / (x + y).gamma()
 }
 
@@ -37,7 +38,7 @@ pub fn beta_inc(a: f64, b: f64, x: f64) -> f64 {
 }
 
 /// Computes the regularized incomplete beta function
-impl Beta for f64 {
+impl BetaFunction for f64 {
     // Copied from `special` crate
     fn beta_inc(self, mut p: Self, mut q: Self) -> Self {
         // Algorithm AS 63

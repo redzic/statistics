@@ -4,6 +4,7 @@ use crate::stats::traits::*;
 
 // TODO add tests for uniform distribution
 
+/// Uniform distribution
 #[derive(Debug, Copy, Clone)]
 pub struct Uniform {
     min: f64,
@@ -48,9 +49,7 @@ impl Variance<f64> for Uniform {
     fn variance(&self) -> f64 {
         (self.max - self.min).powi(2) / 12.0
     }
-}
 
-impl StdDev<f64> for Uniform {
     fn stdev(&self) -> f64 {
         self.variance().sqrt()
     }
